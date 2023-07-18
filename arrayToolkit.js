@@ -6,7 +6,7 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-//Takes the length the array should be changed into as argument. If array longer, shortens array. If array shorter, loops the array until desired length:
+//Takes the length the array should be changed into as argument. If an array longer, shortens it. If  shorter, loops the array until desired length:
 //Generated with Chatgpt:
 function adjustArrayLength(number, array) {
   const arrayLength = array.length;
@@ -20,7 +20,7 @@ function adjustArrayLength(number, array) {
   }
 }
 
-//Find the closest number within the array that is smaller than the "num" argument:
+//Finds the closest number within the array that is smaller than the "num" argument:
 function findClosestSmaller(arr, num) {
   let left = 0;
   let right = arr.length - 1;
