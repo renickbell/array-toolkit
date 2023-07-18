@@ -6,7 +6,7 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-//Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
+//Takes the length the array should be changed into as argument. If array longer, shortens array. If array shorter, loops the array until desired length:
 //Generated with Chatgpt:
 function adjustArrayLength(number, array) {
   const arrayLength = array.length;
@@ -20,7 +20,7 @@ function adjustArrayLength(number, array) {
   }
 }
 
-//Find the closest number that is smaller than it:
+//Find the closest number within the array that is smaller than the "num" argument:
 function findClosestSmaller(arr, num) {
   let left = 0;
   let right = arr.length - 1;
@@ -52,7 +52,7 @@ function resizeArray(number, array) {
   return expandedArray.slice(0, number);
 }
 
-//Find most frequent item that appears in array: change to find most frequen item
+//Find the most frequent item that appears in an array:
 function findMostFrequentItem(array) {
   var itemCounts = new Map();
   var maxItem = array[0];
