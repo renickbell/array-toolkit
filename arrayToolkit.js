@@ -73,6 +73,7 @@ function findMostFrequentItem(array) {
   return maxItem;
 }
 
+//Similar to the built-in slice function but with additional arguments that decide how many items to remove in a array and what they will be replaced wtih.
 function safeSplice(inputArray, amountToRemove,indexToRemove,replaceWith) {
   let array1 = inputArray.slice(0, indexToRemove )
 if (replaceWith!=undefined){
@@ -81,15 +82,17 @@ array1.push(replaceWith)}
   return array1.concat(array2)
     }
 
-
+//Flips a bolean. If input is true, returns false. If inputs is false, return true.
 function flipBooleans (arr) {
     return arr.map (a => !a)
 }
 
+//Adds up all the numbers in an array.
 function sum (inputArray) {
     return inputArray.reduce((acc,cur) => {return acc + cur},0)
 }
 
+//Adds up all the numbers with a starting value, similar to sum.
 function runningSum (startingVal,inputArray) {
     let currentSum = startingVal;
     let output = [];
@@ -101,19 +104,23 @@ function runningSum (startingVal,inputArray) {
     return output
 }
 
+//Gets the average of all the numbers in an array.
 function mean (inputArray) {
       return sum(inputArray)/inputArray.length
 }
 
+//Returns true if two arrays share the same item, false if they don't.
 function includesOneOf (inputArray, things) {
     let bools = things.map(t => inputArray.includes(t));
     if (bools.includes(true)) {return true} else {return false}
 }
 
+//Removes a specific item in an array.
 function removeItem(arr, item){
      return arr.filter(f => f !== item)
     }
 
+//Takes a function and make the outputs from it an array.
 function buildArray (n, fillFunction) {
   let outputArray = [];
   for (let i = 0; i < n; i++) {
@@ -122,6 +129,7 @@ function buildArray (n, fillFunction) {
   return outputArray
 }
 
+//Makes a numeral array. Start determines the starting number and end determines the last number.
 function numArray (start,end) {
     let output = [];
     for(let i = start; i <= end; i++) {output.push(i)};
@@ -164,8 +172,10 @@ let pickN = (n,inputArray) => {
         a.forEach(i => out.push(pick(inputArray)));
         return out }
 
+//Sort the numbers in an array from small to big.
 function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
 
+//Sort the numbers in an array from big to small.
 function high2LowSort (inputArray) { return inputArray.sort((a, b) => b - a)}
 
 function takeN (inputArray, n) {
@@ -191,6 +201,7 @@ function takeTo (targetLength, inputArray) {
     return output
 }
 
+//Loops an array until its length meets the target length.
 function loopTo (targetLength, inputArray) {
     let inputSum = sum(inputArray);
     let loopN = Math.ceil(targetLength/inputSum);
@@ -206,6 +217,7 @@ function matchesOneOf (candidates, thing) {
     return includesOneOf([thing],candidates)
 }
 
+//Shuffle the order of items in an array.
 function shuffle(array) {
   var currentIndex = array.length,  randomIndex;
   // While there remain elements to shuffle...
@@ -220,7 +232,7 @@ function shuffle(array) {
   return array;
 }
 
-
+//Gets the smallest number in an array.
 function getMinIndex (inputArray) {
     let currentMin = [];
     for (let i = 0; i< inputArray.length; i++){
@@ -231,6 +243,7 @@ function getMinIndex (inputArray) {
     return currentMin
 }
 
+//Gets the biggest number in an array.
 function getMaxIndex (inputArray) {
     let currentMax = [];
     for (let i = 0; i< inputArray.length; i++){
