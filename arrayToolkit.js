@@ -241,3 +241,6 @@ function getMaxIndex (inputArray) {
     return currentMax
 }
 
+function gatherBySubstring (inputArray, substringArray) {
+    return inputArray.filter(x => substringArray.some(y => x.includes(y)))
+}
