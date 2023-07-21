@@ -145,6 +145,7 @@ function linearArray (start, step, end) {
     return output
 }
 
+//makes an array of numbers, you can specify the gap between each number
 function geometricArray (start, step, end) {
     let output = [start];
     for (let i = 1; (start * (i*step)) <= end; i++) {
@@ -153,12 +154,14 @@ function geometricArray (start, step, end) {
     return output
 }
 
+//Takes an input array and scales its values from a given input range to a specified output range.
 function scaleToRange (inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
     let scale = (outputMax - outputMin)/(inputMax - inputMin)
     return inputArray.map(x => ((x - inputMin) * scale) + outputMin)
 }
 
+//scales the elements in the "vals" array proportionally based on the desired "span". 
 function scaleToSum (span,vals) {
     return vals.map(x => x * span/sum(vals))
 }
@@ -178,6 +181,7 @@ function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
 //Sort the numbers in an array from big to small.
 function high2LowSort (inputArray) { return inputArray.sort((a, b) => b - a)}
 
+//Takes a specific amount of items in an array. If the desired amount of items is longer than the length of the array, repeats it.
 function takeN (inputArray, n) {
     let outputArray = [];
     for (let i = 0; i < n; i++)
@@ -185,6 +189,7 @@ function takeN (inputArray, n) {
     return outputArray
 }
 
+//Constructs an output array by repeatedly taking elements from the inputArray until the length of the output reaches the targetLength.
 function takeTo (targetLength, inputArray) {
     let output = [];
     let counter = 0;
@@ -209,10 +214,13 @@ function loopTo (targetLength, inputArray) {
     return takeTo(targetLength,pre)
 }
 
+//Takes two arrays, a and b, and creates a new array where each element is a sub-array containing the elements at the same index from a and b.
 function zip (a,b) {return a.map((x, i) => { return [x, b[i]]; })}
 
+//Takes two arrays, a and b, and creates a new array where each element is a sub-array formed by concatenating the corresponding elements from a and b. This function is similar to the zip function
 function buildZip (a,b) {return a.map((x,i) => x.concat(b[i]))}
 
+//Returns true if a variable matches another, false if they don't.
 function matchesOneOf (candidates, thing) {
     return includesOneOf([thing],candidates)
 }
@@ -254,6 +262,7 @@ function getMaxIndex (inputArray) {
     return currentMax
 }
 
+//Filters the inputArray based on whether any of the substrings in substringArray are found in each element.
 function gatherBySubstring (inputArray, substringArray) {
     return inputArray.filter(x => substringArray.some(y => x.includes(y)))
 }
