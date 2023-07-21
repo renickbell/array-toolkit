@@ -115,12 +115,12 @@ function includesOneOf (inputArray, things) {
     if (bools.includes(true)) {return true} else {return false}
 }
 
-//Removes a specific item in an array.
+//Removes all the instances of a specific item in an array.
 function removeItem(arr, item){
      return arr.filter(f => f !== item)
     }
 
-//Takes a function and make the outputs from it an array.
+//Takes a function and make the outputs from it an array, the function can use the current index as an argument.
 function buildArray (n, fillFunction) {
   let outputArray = [];
   for (let i = 0; i < n; i++) {
