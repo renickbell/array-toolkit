@@ -124,3 +124,7 @@ function shuffle(array) {
 function gatherBySubstring (inputArray, substringArray) {
     return inputArray.filter(x => substringArray.some(y => x.includes(y)))
 }
+
+function flipBooleans (arr) {
+    return arr.map (a => !a)
+}
