@@ -14,12 +14,6 @@ function buildArray (n, fillFunction) {
   return outputArray
 }
 
-function numArray (start,end) {
-    let output = [];
-    for(let i = start; i <= end; i++) {output.push(i)};
-    return output
-}
-
 // modify so that it doesn't have crash potential
 function linearArray (start, step, end) {
     let output = [start];
@@ -27,6 +21,10 @@ function linearArray (start, step, end) {
         output.push(start + (i*step))
     }
     return output
+}
+
+function numArray (start,end) {
+    return linearArray(start, 1, end)
 }
 
 function geometricArray (start, step, end) {
