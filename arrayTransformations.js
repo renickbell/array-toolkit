@@ -45,7 +45,15 @@ array1.push(replaceWith)}
 
 function removeItem(arr, item){
      return arr.filter(f => f !== item)
-    }
+}
+
+function removeMultipleItems (arr, itemsToRemove){
+    let sortedArray = arr
+    itemsToRemove.forEach(x => {
+        sortedArray = removeItem(sortedArray, x)
+    })
+    return sortedArray
+}
 
 function scaleToRange (inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
