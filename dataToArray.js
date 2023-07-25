@@ -23,7 +23,7 @@ function linearArray (start, step, end) {
     return output
 }
 
-function numArray (start,end) {
+function integerArray (start,end) {
     return linearArray(start, 1, end)
 }
 
@@ -34,3 +34,4 @@ function geometricArray (start, step, end) {
     }
     return output
 }
+
