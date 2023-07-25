@@ -6,6 +6,8 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
+/// this file is old, to be removed
+
 //Takes the length the array should be changed into as argument. If an array longer, shortens it. If  shorter, loops the array until desired length:
 //Generated with Chatgpt:
 function adjustArrayLength(number, array) {
