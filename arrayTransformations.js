@@ -105,6 +105,7 @@ function loopTo (targetLength, inputArray) {
 
 function zip (a,b) {return a.map((x, i) => { return [x, b[i]]; })}
 
+// a is an array of arrays; this function concats b onto each of the arrays in a. b could be either an item or an array.
 function buildZip (a,b) {return a.map((x,i) => x.concat(b[i]))}
 
 function shuffle(array) {
