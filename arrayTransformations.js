@@ -111,13 +111,22 @@ function loopTo (targetLength, inputArray) {
     return takeTo(targetLength,pre)
 }
 
-function zip (a,b) {return a.map((x, i) => { return [x, b[i]]; })}
+//Non ramda version:
+// function zip (a,b) {return a.map((x, i) => { return [x, b[i]]; })}
+
+//randa version:
+function zip (a,b) {return R.zip(a,b)}
 
 // a is an array of arrays; this function concats b onto each of the arrays in a. b could be either an item or an array.
 // arr1 = [[1,1,1],[2,2,2],[3,3,3]] 
 // arr2 = [[4,4,4],[5,5,5],[6,6,6]] 
 // buildZip(arr1,arr2)
-function buildZip (a,b) {return a.map((x,i) => x.concat(b[i]))}
+// non ramda version:
+// function buildZip (a,b) {return a.map((x,i) => x.concat(b[i]))}
+//ramda version:
+function buildZip(a, b) {
+  return R.zipWith(R.concat, a, b);
+}
 
 function shuffle(array) {
   var currentIndex = array.length,  randomIndex;
