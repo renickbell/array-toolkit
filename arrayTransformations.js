@@ -35,6 +35,7 @@ function resizeArray(number, array) {
   return expandedArray.slice(0, number);
 }
 
+//Similar to the built-in slice function but with additional arguments that decide how many items to remove in a array and what they will be replaced wtih.
 function safeSplice(inputArray, amountToRemove,indexToRemove,replaceWith) {
   let array1 = inputArray.slice(0, indexToRemove )
 if (replaceWith!=undefined){
@@ -43,9 +44,11 @@ array1.push(replaceWith)}
   return array1.concat(array2)
 }
 
+//Removes all the instances of a specific item in an array.
 function removeItem(arr, item){
      return arr.filter(f => f !== item)
 }
+
 
 function removeMultipleItems (arr, itemsToRemove){
     let sortedArray = arr
@@ -55,15 +58,18 @@ function removeMultipleItems (arr, itemsToRemove){
     return sortedArray
 }
 
+//Takes an input array and scales its values from a given input range to a specified output range.
 function scaleToRange (inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
     let scale = (outputMax - outputMin)/(inputMax - inputMin)
     return inputArray.map(x => ((x - inputMin) * scale) + outputMin)
 }
 
+//scales the elements in the "vals" array proportionally based on the desired "span". 
 function scaleToSum (span,vals) {
     return vals.map(x => x * span/sum(vals))
 }
+
 
 function pick (inputArray) {
     return inputArray[Math.round((inputArray.length - 1) * Math.random())];
@@ -77,10 +83,13 @@ function pickN (n,inputArray) {
         return out 
 }
 
+//Sort the numbers in an array from small to big.
 function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
 
+//Sort the numbers in an array from big to small.
 function high2LowSort (inputArray) { return inputArray.sort((a, b) => b - a)}
 
+//Takes a specific amount of items in an array. If the desired amount of items is longer than the length of the array, repeats it.
 function takeN (inputArray, n) {
     let outputArray = [];
     for (let i = 0; i < n; i++)
@@ -88,6 +97,7 @@ function takeN (inputArray, n) {
     return outputArray
 }
 
+//Constructs an output array by repeatedly taking elements from the inputArray until the length of the output reaches the targetLength.
 function takeTo (targetLength, inputArray) {
     let output = [];
     let counter = 0;
@@ -104,6 +114,7 @@ function takeTo (targetLength, inputArray) {
     return output
 }
 
+//Loops an array until its length meets the target length.
 function loopTo (targetLength, inputArray) {
     let inputSum = sum(inputArray);
     let loopN = Math.ceil(targetLength/inputSum);
@@ -130,6 +141,7 @@ function buildZip(a, b) {
   return R.zipWith(R.concat, a, b);
 }
 
+//Shuffle the order of items in an array.
 function shuffle(array) {
   var currentIndex = array.length,  randomIndex;
   // While there remain elements to shuffle...
@@ -144,10 +156,12 @@ function shuffle(array) {
   return array;
 }
 
+//Filters the inputArray based on whether any of the substrings in substringArray are found in each element.
 function gatherBySubstring (inputArray, substringArray) {
     return inputArray.filter(x => substringArray.some(y => x.includes(y)))
 }
 
+//Flips a bolean. If input is true, returns false. If inputs is false, return true.
 function flipBooleans (arr) {
     return arr.map (a => !a)
 }
