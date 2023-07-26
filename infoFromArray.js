@@ -6,21 +6,35 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-//Find the closest number that is smaller than it:
-function findClosestSmaller(arr, num) {
-  let left = 0;
-  let right = arr.length - 1;
-  let closest = null;
-  while (left <= right) {
-    let mid = Math.floor((left + right) / 2);
-    if (arr[mid] < num) {
-      closest = arr[mid];
-      left = mid + 1;
-    } else {
-      right = mid - 1;
+function findClosest (arr, item, comparatorFn){
+    let mid = arr.indexOf(item)
+    let left = mid - 1
+    let right = mid + 1
+    while (left > 0 || right < arr.length){
+        if (left < 0){}
+        else if (comparatorFn(arr[left], item) === true){
+            return {item: arr[left], index: left}
+        }
+        else{
+            left -= 1
+        }
+        if (right > arr.length){}
+        else if (comparatorFn(arr[right], item) === true){
+            return {item: arr[right], index: right}
+        }
+        else {
+            right += 1
+        }
     }
-  }
-  return closest;
+    return false
+}
+
+function findClosestSmaller (arr, item) {
+    return findClosest(arr, item, (a, b) => {return a < b}).item
+}
+
+function findClosestLarger (arr, item) {
+    return findClosest(arr, item, (a, b) => {return a > b}).item
 }
 
 //Find most frequent item that appears in array: change to find most frequen item
