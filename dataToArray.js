@@ -6,6 +6,7 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
+//Takes a function and make the outputs from it an array, the function can use the current index as an argument.
 function buildArray (n, fillFunction) {
   let outputArray = [];
   for (let i = 0; i < n; i++) {
@@ -23,10 +24,12 @@ function linearArray (start, step, end) {
     return output
 }
 
+//Makes an array filled with integers, the starting and anding value can be specified.
 function integerArray (start,end) {
     return linearArray(start, 1, end)
 }
 
+//makes an array of numbers, you can specify the gap between each number
 function geometricArray (start, step, end) {
     let output = [start];
     for (let i = 1; (start * (i*step)) <= end; i++) {
