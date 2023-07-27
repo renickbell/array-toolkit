@@ -70,11 +70,12 @@ function scaleToSum (span,vals) {
     return vals.map(x => x * span/sum(vals))
 }
 
-
+//Picks an item randomly in an array.
 function pick (inputArray) {
     return inputArray[Math.round((inputArray.length - 1) * Math.random())];
 }
 
+///Picks multiple items randomly in an array.
 function pickN (n,inputArray) {
         let a = new Array(n);
         a.fill(0,0,n);
