@@ -6,3 +6,13 @@ This tool is developed by [Renick Bell](https://renickbell.net/doku.php?id=start
 
 This tools uses the [Ramda](https://ramdajs.com/) library.
 License is GPL3
+
+## Installation:
+```
+npm i array-toolkit
+```
+
+## Usage:
+```
+const A = require('array-toolkit')
+```
