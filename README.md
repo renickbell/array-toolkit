@@ -11,7 +11,7 @@ License is GPL3
 ```
 npm i array-toolkit
 ```
-
+[Link to page on npm](https://www.npmjs.com/package/array-toolkit)
 ## Usage:
 ```
 const A = require('array-toolkit')
