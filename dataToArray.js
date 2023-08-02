@@ -20,8 +20,8 @@ function integerArray (start,end) {
     return linearArray(start, 1, end)
 }
 
-function geometricArray (start, step, end) {
-    let output = buildArray(Math.floor(end/(start * step)) + 1, i =>  i * step)
+function geometricArray (start, step, numberOfSteps) {
+    let output = buildArray(numberOfSteps, i =>  i * step)
     output[0] = start;
     return output
 }
