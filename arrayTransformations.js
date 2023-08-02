@@ -76,11 +76,8 @@ function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
 
 function high2LowSort (inputArray) { return inputArray.sort((a, b) => b - a)}
 
-function takeN (inputArray, n) {
-    let outputArray = [];
-    for (let i = 0; i < n; i++)
-    { outputArray.push(inputArray[i%(inputArray.length)])};
-    return outputArray
+function takeN(inputArray, n) {
+  return Array.from({ length: n }, (_, index) => inputArray[index % inputArray.length]);
 }
 
 function takeTo (targetLength, inputArray) {
