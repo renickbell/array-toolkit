@@ -7,28 +7,28 @@
 // --------------------------------------------------------------------------
 
 function buildArray(n, fillFunction) {
-  return Array.from({ length: n }, (_, i) => fillFunction(i));
+    return Array.from({ length: n }, (_, i) => fillFunction(i));
 }
 
 // modify so that it doesn't have crash potential
-function linearArray (start, step, numberOfSteps) {
-    let output = this.buildArray(numberOfSteps, i => start + i * step)
-    return output
+function linearArray(start, step, numberOfSteps) {
+    let output = this.buildArray(numberOfSteps, (i) => start + i * step);
+    return output;
 }
 
-function integerArray (start,end) {
-    return this.linearArray(start, 1, end)
+function integerArray(start, end) {
+    return this.linearArray(start, 1, end);
 }
 
-function geometricArray (start, step, numberOfSteps) {
-    let output = this.buildArray(numberOfSteps, i =>  i * step)
+function geometricArray(start, step, numberOfSteps) {
+    let output = this.buildArray(numberOfSteps, (i) => i * step);
     output[0] = start;
-    return output
+    return output;
 }
 
 module.exports = {
     buildArray,
     linearArray,
     integerArray,
-    geometricArray
-}
+    geometricArray,
+};
