@@ -71,11 +71,7 @@ function pick (inputArray) {
 }
 
 function pickN (n,inputArray) {
-        let a = new Array(n);
-        a.fill(0,0,n);
-        let out = [];
-        a.forEach(i => out.push(pick(inputArray)));
-        return out 
+    return buildArray(n, i => pick(inputArray)) 
 }
 
 function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
