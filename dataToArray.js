@@ -11,8 +11,8 @@ function buildArray(n, fillFunction) {
 }
 
 // modify so that it doesn't have crash potential
-function linearArray (start, step, end) {
-    let output = buildArray(Math.floor((end - start)/step) + 1, i => start + i * step)
+function linearArray (start, step, numberOfSteps) {
+    let output = buildArray(numberOfSteps, i => start + i * step)
     return output
 }
 
