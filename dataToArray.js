@@ -12,10 +12,7 @@ function buildArray(n, fillFunction) {
 
 // modify so that it doesn't have crash potential
 function linearArray (start, step, end) {
-    let output = [start];
-    for (let i = 1; (start + (i*step)) <= end; i++) {
-        output.push(start + (i*step))
-    }
+    let output = buildArray(Math.floor((end - start)/step) + 1, i => start + i * step)
     return output
 }
 
