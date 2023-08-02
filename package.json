@@ -7,14 +7,14 @@
   "version": "1.2.2",
   "main": "array-toolkit.js",
   "files": [
-      "array-toolkit.js",
-      "arrayTransformations.js",
-      "dataToArray.js",
-      "infoFromArray.js"
+    "array-toolkit.js",
+    "arrayTransformations.js",
+    "dataToArray.js",
+    "infoFromArray.js"
   ],
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test"
   },
   "repository": {
     "type": "git",

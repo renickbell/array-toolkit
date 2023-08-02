@@ -8,11 +8,23 @@ This tools uses the [Ramda](https://ramdajs.com/) library.
 License is GPL3
 
 ## Installation:
+
 ```
 npm i array-toolkit
 ```
+
 [Link to page on npm](https://www.npmjs.com/package/array-toolkit)
+
 ## Usage:
+
 ```
 const A = require('array-toolkit')
+```
+
+## Development
+
+### Test
+
+```
+npm run test
 ```
