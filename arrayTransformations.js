@@ -30,11 +30,9 @@ function resizeArray(number, array) {
     return array.slice(0, number);
   }
   let repetitions = Math.ceil(number / arrayLength);
-  // Duplicate the original array 'repetitions' times using array.flatMap
   let expandedArray = new Array(repetitions).fill(array).flat()
   return expandedArray.slice(0, number);
 }
-
 
 function safeSplice(inputArray, amountToRemove,indexToRemove,replaceWith) {
   let array1 = inputArray.slice(0, indexToRemove )
