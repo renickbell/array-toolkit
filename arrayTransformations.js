@@ -6,14 +6,17 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
+//requiring it locally:
+//require('./node_modules/array-toolkit/arrayTransformations.js')
+
 //Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
 //Generated with Chatgpt:
 function adjustArrayLength(number, array) {
-  const arrayLength = array.length;
+  let arrayLength = array.length;
   if (arrayLength === number) {
     return array;
   } else if (arrayLength < number) {
-    const numCopies = Math.ceil(number / arrayLength);
+    let numCopies = Math.ceil(number / arrayLength);
     return array.concat(...Array(numCopies).fill(array)).slice(0, number);
   } else {
     return array.slice(0, number);
@@ -27,13 +30,11 @@ function resizeArray(number, array) {
     return array.slice(0, number);
   }
   let repetitions = Math.ceil(number / arrayLength);
-  let expandedArrayLength = repetitions * arrayLength;
-  let expandedArray = new Array(expandedArrayLength);
-  for (let i = 0; i < expandedArrayLength; i++) {
-    expandedArray[i] = array[i % arrayLength];
-  }
+  // Duplicate the original array 'repetitions' times using array.flatMap
+  let expandedArray = new Array(repetitions).fill(array).flat()
   return expandedArray.slice(0, number);
 }
+
 
 function safeSplice(inputArray, amountToRemove,indexToRemove,replaceWith) {
   let array1 = inputArray.slice(0, indexToRemove )
@@ -70,7 +71,11 @@ function pick (inputArray) {
 }
 
 function pickN (n,inputArray) {
-    return buildArray(n, i => pick(inputArray)) 
+        let a = new Array(n);
+        a.fill(0,0,n);
+        let out = [];
+        a.forEach(i => out.push(pick(inputArray)));
+        return out 
 }
 
 function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
