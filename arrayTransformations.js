@@ -12,95 +12,106 @@
 //Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
 //Generated with Chatgpt:
 function adjustArrayLength(number, array) {
-  let arrayLength = array.length;
-  if (arrayLength === number) {
-    return array;
-  } else if (arrayLength < number) {
-    let numCopies = Math.ceil(number / arrayLength);
-    return array.concat(...Array(numCopies).fill(array)).slice(0, number);
-  } else {
-    return array.slice(0, number);
-  }
+    let arrayLength = array.length;
+    if (arrayLength === number) {
+        return array;
+    } else if (arrayLength < number) {
+        let numCopies = Math.ceil(number / arrayLength);
+        return array.concat(...Array(numCopies).fill(array)).slice(0, number);
+    } else {
+        return array.slice(0, number);
+    }
 }
 
 //Set a size of the array and the array will be expanded or shrunk to fix that size. To expand it will just loop the array:
 function resizeArray(number, array) {
-  let arrayLength = array.length;
-  if (arrayLength >= number) {
-    return array.slice(0, number);
-  }
-  let repetitions = Math.ceil(number / arrayLength);
-  let expandedArray = new Array(repetitions).fill(array).flat()
-  return expandedArray.slice(0, number);
+    let arrayLength = array.length;
+    if (arrayLength >= number) {
+        return array.slice(0, number);
+    }
+    let repetitions = Math.ceil(number / arrayLength);
+    let expandedArray = new Array(repetitions).fill(array).flat();
+    return expandedArray.slice(0, number);
 }
 
-function safeSplice(inputArray, amountToRemove,indexToRemove,replaceWith) {
-  let array1 = inputArray.slice(0, indexToRemove )
-if (replaceWith!=undefined){
-array1.push(replaceWith)}
-  let array2 = inputArray.slice(indexToRemove + amountToRemove, inputArray.length)
-  return array1.concat(array2)
+function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
+    let array1 = inputArray.slice(0, indexToRemove);
+    if (replaceWith != undefined) {
+        array1.push(replaceWith);
+    }
+    let array2 = inputArray.slice(
+        indexToRemove + amountToRemove,
+        inputArray.length
+    );
+    return array1.concat(array2);
 }
 
-function removeItem(arr, item){
-     return arr.filter(f => f !== item)
+function removeItem(arr, item) {
+    return arr.filter((f) => f !== item);
 }
 
-function removeMultipleItems (arr, itemsToRemove){
-    let sortedArray = arr
-    itemsToRemove.forEach(x => {
-        sortedArray = this.removeItem(sortedArray, x)
-    })
-    return sortedArray
+function removeMultipleItems(arr, itemsToRemove) {
+    let sortedArray = arr;
+    itemsToRemove.forEach((x) => {
+        sortedArray = this.removeItem(sortedArray, x);
+    });
+    return sortedArray;
 }
 
-function scaleToRange (inputArray, inputMin, inputMax, outputMin, outputMax) {
+function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
-    let scale = (outputMax - outputMin)/(inputMax - inputMin)
-    return inputArray.map(x => ((x - inputMin) * scale) + outputMin)
+    let scale = (outputMax - outputMin) / (inputMax - inputMin);
+    return inputArray.map((x) => (x - inputMin) * scale + outputMin);
 }
 
-function scaleToSum (span,vals) {
-    return vals.map(x => x * span/sum(vals))
+function scaleToSum(span, vals) {
+    return vals.map((x) => (x * span) / sum(vals));
 }
 
-function pick (inputArray) {
+function pick(inputArray) {
     return inputArray[Math.round((inputArray.length - 1) * Math.random())];
 }
 
-function pickN (n,inputArray) {
-    return this.buildArray(n, i => pick(inputArray))
+function pickN(n, inputArray) {
+    return this.buildArray(n, (i) => pick(inputArray));
 }
 
-function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
+function low2HighSort(inputArray) {
+    return inputArray.sort((a, b) => a - b);
+}
 
-function high2LowSort (inputArray) { return inputArray.sort((a, b) => b - a)}
+function high2LowSort(inputArray) {
+    return inputArray.sort((a, b) => b - a);
+}
 
 function takeN(inputArray, n) {
-  return Array.from({ length: n }, (_, index) => inputArray[index % inputArray.length]);
+    return Array.from(
+        { length: n },
+        (_, index) => inputArray[index % inputArray.length]
+    );
 }
 
-function takeTo (targetLength, inputArray) {
+function takeTo(targetLength, inputArray) {
     let output = [];
     let counter = 0;
-    while (this.sum(output) < targetLength){
-        let nextVal = inputArray[counter%(inputArray.length)];
+    while (this.sum(output) < targetLength) {
+        let nextVal = inputArray[counter % inputArray.length];
         output.push(nextVal);
-        counter++
+        counter++;
     }
     if (sum(output) > targetLength) {
         outputSum = this.sum(output);
         let difference = outputSum - targetLength;
         output[output.length - 1] = output[output.length - 1] - difference;
     }
-    return output
+    return output;
 }
 
-function loopTo (targetLength, inputArray) {
+function loopTo(targetLength, inputArray) {
     let inputSum = this.sum(inputArray);
-    let loopN = Math.ceil(targetLength/inputSum);
-    let pre = R.flatten(buildArray(loopN, x => inputArray))
-    return this.takeTo(targetLength,pre)
+    let loopN = Math.ceil(targetLength / inputSum);
+    let pre = R.flatten(buildArray(loopN, (x) => inputArray));
+    return this.takeTo(targetLength, pre);
 }
 
 //Non ramda version:
@@ -108,53 +119,61 @@ function loopTo (targetLength, inputArray) {
 
 //randa version:
 //generated by chatgpt:
-function zip (a,b) {return R.zip(a,b)}
+function zip(a, b) {
+    return R.zip(a, b);
+}
 
 // a is an array of arrays; this function concats b onto each of the arrays in a. b could be either an item or an array.
-// arr1 = [[1,1,1],[2,2,2],[3,3,3]] 
-// arr2 = [[4,4,4],[5,5,5],[6,6,6]] 
+// arr1 = [[1,1,1],[2,2,2],[3,3,3]]
+// arr2 = [[4,4,4],[5,5,5],[6,6,6]]
 // buildZip(arr1,arr2)
 // non ramda version:
 // function buildZip (a,b) {return a.map((x,i) => x.concat(b[i]))}
 //ramda version:
 //generated by chatgpt:
 function buildZip(a, b) {
-  return R.zipWith(R.concat, a, b);
+    return R.zipWith(R.concat, a, b);
 }
 
 function shuffle(array) {
-  return array.reduceRight((acc, _, currentIndex) => {
-    const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
-    [acc[currentIndex], acc[randomIndex]] = [acc[randomIndex], acc[currentIndex]];
-    return acc;
-  }, [...array]);
+    return array.reduceRight(
+        (acc, _, currentIndex) => {
+            const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+            [acc[currentIndex], acc[randomIndex]] = [
+                acc[randomIndex],
+                acc[currentIndex],
+            ];
+            return acc;
+        },
+        [...array]
+    );
 }
 
-function gatherBySubstring (inputArray, substringArray) {
-    return inputArray.filter(x => substringArray.some(y => x.includes(y)))
+function gatherBySubstring(inputArray, substringArray) {
+    return inputArray.filter((x) => substringArray.some((y) => x.includes(y)));
 }
 
-function flipBooleans (arr) {
-    return arr.map (a => !a)
+function flipBooleans(arr) {
+    return arr.map((a) => !a);
 }
 
 module.exports = {
-  adjustArrayLength,
-  resizeArray,
-  safeSplice,
-  removeItem,
-  removeMultipleItems,
-  scaleToRange,
-  scaleToSum,
-  pick,
-  pickN,
-  low2HighSort,
-  high2LowSort,
-  takeN,
-  takeTo,
-  loopTo,
-  zip,
-  buildZip,
-  shuffle,
-  gatherBySubstring,
+    adjustArrayLength,
+    resizeArray,
+    safeSplice,
+    removeItem,
+    removeMultipleItems,
+    scaleToRange,
+    scaleToSum,
+    pick,
+    pickN,
+    low2HighSort,
+    high2LowSort,
+    takeN,
+    takeTo,
+    loopTo,
+    zip,
+    buildZip,
+    shuffle,
+    gatherBySubstring,
 };
