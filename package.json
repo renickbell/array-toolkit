@@ -1,0 +1,32 @@
+{
+  "dependencies": {
+    "ramda": "^0.28.0"
+  },
+  "name": "array-toolkit",
+  "description": "## Some dope tools for Javascript array manipulation.",
+  "version": "1.2.2",
+  "main": "array-toolkit.js",
+  "files": [
+      "array-toolkit.js",
+      "arrayTransformations.js",
+      "dataToArray.js",
+      "infoFromArray.js"
+  ],
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renickbell/array-toolkit"
+  },
+  "keywords": [
+    "array"
+  ],
+  "author": "Renick Bell, Steve Wang, Yiler Huang",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/renickbell/arrayToolkit/issues"
+  },
+  "homepage": "https://github.com/renickbell/arrayToolkit#readme"
+}
