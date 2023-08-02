@@ -7,7 +7,7 @@
 // --------------------------------------------------------------------------
 
 //requiring it locally:
-//require('./node_modules/array-toolkit/arrayTransformations.js')
+//let dataToArray = require('./dataToArray.js')
 
 //Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
 //Generated with Chatgpt:
@@ -49,7 +49,7 @@ function removeItem(arr, item){
 function removeMultipleItems (arr, itemsToRemove){
     let sortedArray = arr
     itemsToRemove.forEach(x => {
-        sortedArray = removeItem(sortedArray, x)
+        sortedArray = this.removeItem(sortedArray, x)
     })
     return sortedArray
 }
@@ -69,7 +69,7 @@ function pick (inputArray) {
 }
 
 function pickN (n,inputArray) {
-    return buildArray(n, i => pick(inputArray)) 
+    return this.buildArray(n, i => pick(inputArray))
 }
 
 function low2HighSort (inputArray) { return inputArray.sort((a, b) => a - b)}
@@ -86,13 +86,13 @@ function takeN (inputArray, n) {
 function takeTo (targetLength, inputArray) {
     let output = [];
     let counter = 0;
-    while (sum(output) < targetLength){
+    while (this.sum(output) < targetLength){
         let nextVal = inputArray[counter%(inputArray.length)];
         output.push(nextVal);
         counter++
     }
     if (sum(output) > targetLength) {
-        outputSum = sum(output);
+        outputSum = this.sum(output);
         let difference = outputSum - targetLength;
         output[output.length - 1] = output[output.length - 1] - difference;
     }
@@ -100,10 +100,10 @@ function takeTo (targetLength, inputArray) {
 }
 
 function loopTo (targetLength, inputArray) {
-    let inputSum = sum(inputArray);
+    let inputSum = this.sum(inputArray);
     let loopN = Math.ceil(targetLength/inputSum);
     let pre = R.flatten(buildArray(loopN, x => inputArray))
-    return takeTo(targetLength,pre)
+    return this.takeTo(targetLength,pre)
 }
 
 //Non ramda version:
