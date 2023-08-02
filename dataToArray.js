@@ -6,12 +6,8 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-function buildArray (n, fillFunction) {
-  let outputArray = [];
-  for (let i = 0; i < n; i++) {
-    outputArray.push(fillFunction(i))
-  }
-  return outputArray
+function buildArray(n, fillFunction) {
+  return Array.from({ length: n }, (_, i) => fillFunction(i));
 }
 
 // modify so that it doesn't have crash potential
