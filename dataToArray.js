@@ -12,16 +12,16 @@ function buildArray(n, fillFunction) {
 
 // modify so that it doesn't have crash potential
 function linearArray (start, step, numberOfSteps) {
-    let output = buildArray(numberOfSteps, i => start + i * step)
+    let output = this.buildArray(numberOfSteps, i => start + i * step)
     return output
 }
 
 function integerArray (start,end) {
-    return linearArray(start, 1, end)
+    return this.linearArray(start, 1, end)
 }
 
 function geometricArray (start, step, numberOfSteps) {
-    let output = buildArray(numberOfSteps, i =>  i * step)
+    let output = this.buildArray(numberOfSteps, i =>  i * step)
     output[0] = start;
     return output
 }
