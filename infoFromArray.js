@@ -42,17 +42,17 @@ function findClosestLarger (arr, item) {
 
 //Find most frequent item that appears in array: change to find most frequen item
 function findMostFrequentItem(array) {
-  var itemCounts = new Map();
-  var maxItem = array[0];
-  var maxCount = 0;
-  for (var i = 0; i < array.length; i++) {
-    var item = array[i];
+  let itemCounts = new Map();
+  let maxItem = array[0];
+  let maxCount = 0;
+  for (let i = 0; i < array.length; i++) {
+    let item = array[i];
     if (itemCounts.has(item)) {
       itemCounts.set(item, itemCounts.get(item) + 1);
     } else {
       itemCounts.set(item, 1);
     }
-    var currentCount = itemCounts.get(item);
+    let currentCount = itemCounts.get(item);
     if (currentCount > maxCount) {
       maxItem = item;
       maxCount = currentCount;
