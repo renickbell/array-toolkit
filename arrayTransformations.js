@@ -44,8 +44,16 @@ function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
     return array1.concat(array2);
 }
 
-function removeItem(arr, item) {
+function removeAllInstance(arr, item) {
     return arr.filter((f) => f !== item);
+}
+
+function removeFirstInstance(arr, item){
+    const index = arr.indexOf(item);
+    if (index > -1){
+         arr.splice(index, 1)
+    }
+    return arr
 }
 
 function removeMultipleItems(arr, itemsToRemove) {
@@ -155,7 +163,7 @@ module.exports = {
     adjustArrayLength,
     resizeArray,
     safeSplice,
-    removeItem,
+    removeAllInstance,
     removeMultipleItems,
     scaleToRange,
     scaleToSum,
@@ -172,4 +180,5 @@ module.exports = {
     gatherBySubstring,
     flipBooleans,
     sum,
+    removeFirstInstance
 };
