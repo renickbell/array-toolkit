@@ -56,6 +56,13 @@ function removeFirstInstance(arr, item){
     return arr
 }
 
+function removeAtIndex(arr, item, index){
+    if (arr[index] == item){
+        arr.splice(index, 1)
+    }
+    return arr
+}
+
 function removeMultipleItems(arr, itemsToRemove) {
     return arr.filter((x) => !itemsToRemove.includes(x));
 }
@@ -180,5 +187,6 @@ module.exports = {
     gatherBySubstring,
     flipBooleans,
     sum,
-    removeFirstInstance
+    removeFirstInstance,
+    removeAtIndex
 };
