@@ -6,36 +6,37 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-function findClosest(arr, item, comparatorFn) {
-    let mid = arr.indexOf(item);
-    let left = mid - 1;
-    let right = mid + 1;
-    while (left > 0 || right < arr.length) {
-        if (left < 0) {
-        } else if (comparatorFn(arr[left], item) === true) {
-            return { item: arr[left], index: left };
-        } else {
-            left -= 1;
+function findClosest (arr, item, comparatorFn){
+    let mid = arr.indexOf(item)
+    let left = mid
+    let right = mid 
+    let sortedArray = arr.map((x, i) => {
+        if (i % 2 === 0 && left > 0){
+            left -= 1
+            return {index: left, item: arr[left]}
         }
-        if (right > arr.length) {
-        } else if (comparatorFn(arr[right], item) === true) {
-            return { item: arr[right], index: right };
-        } else {
-            right += 1;
+        else if (right < arr.length - 1){
+            right += 1
+            return {index: right, item: arr[right]}
         }
-    }
-    return false;
+        else {
+            left -= 1
+            return {index: left, item: arr[left]}
+        }
+    })
+    sortedArray.pop() 
+    return sortedArray[sortedArray.findIndex(comparatorFn)]
 }
 
 function findClosestSmaller(arr, item) {
-    return this.findClosest(arr, item, (a, b) => {
-        return a < b;
+    return this.findClosest(arr, item, (inputItem) => {
+        return inputItem.item < item;
     }).item;
 }
 
-function findClosestLarger(arr, item) {
-    return this.findClosest(arr, item, (a, b) => {
-        return a > b;
+function findClosestLarger (arr, item) {
+    return this.findClosest(arr, item, (inputItem) => {
+        return inputItem.item > item;
     }).item;
 }
 
