@@ -6,8 +6,9 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
+const R = require('ramda');
 //requiring it locally:
-//let dataToArray = require('./dataToArray.js')
+const buildArray = require('./dataToArray.js').buildArray;
 
 //Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
 //Generated with Chatgpt:
@@ -39,10 +40,7 @@ function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
     if (replaceWith != undefined) {
         array1.push(replaceWith);
     }
-    let array2 = inputArray.slice(
-        indexToRemove + amountToRemove,
-        inputArray.length
-    );
+    let array2 = inputArray.slice(indexToRemove + amountToRemove, inputArray.length);
     return array1.concat(array2);
 }
 
@@ -51,11 +49,7 @@ function removeItem(arr, item) {
 }
 
 function removeMultipleItems(arr, itemsToRemove) {
-    let sortedArray = arr;
-    itemsToRemove.forEach((x) => {
-        sortedArray = this.removeItem(sortedArray, x);
-    });
-    return sortedArray;
+    return arr.filter((x) => !itemsToRemove.includes(x));
 }
 
 function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
@@ -64,8 +58,13 @@ function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
     return inputArray.map((x) => (x - inputMin) * scale + outputMin);
 }
 
+function sum(array) {
+    return array.reduce((x, acc) => x + acc, 0);
+}
+
 function scaleToSum(span, vals) {
-    return vals.map((x) => (x * span) / sum(vals));
+    const inputSum = sum(vals);
+    return vals.map((x) => (x * span) / inputSum);
 }
 
 function pick(inputArray) {
@@ -73,7 +72,7 @@ function pick(inputArray) {
 }
 
 function pickN(n, inputArray) {
-    return this.buildArray(n, (i) => pick(inputArray));
+    return buildArray(n, (i) => pick(inputArray));
 }
 
 function low2HighSort(inputArray) {
@@ -85,22 +84,20 @@ function high2LowSort(inputArray) {
 }
 
 function takeN(inputArray, n) {
-    return Array.from(
-        { length: n },
-        (_, index) => inputArray[index % inputArray.length]
-    );
+    return Array.from({ length: n }, (_, index) => inputArray[index % inputArray.length]);
 }
 
 function takeTo(targetLength, inputArray) {
-    let output = [];
+    const output = [];
     let counter = 0;
-    while (this.sum(output) < targetLength) {
-        let nextVal = inputArray[counter % inputArray.length];
+    let outputSum = 0;
+    while (outputSum < targetLength) {
+        const nextVal = inputArray[counter % inputArray.length];
         output.push(nextVal);
+        outputSum += nextVal;
         counter++;
     }
-    if (sum(output) > targetLength) {
-        outputSum = this.sum(output);
+    if (outputSum > targetLength) {
         let difference = outputSum - targetLength;
         output[output.length - 1] = output[output.length - 1] - difference;
     }
@@ -108,10 +105,10 @@ function takeTo(targetLength, inputArray) {
 }
 
 function loopTo(targetLength, inputArray) {
-    let inputSum = this.sum(inputArray);
-    let loopN = Math.ceil(targetLength / inputSum);
-    let pre = R.flatten(buildArray(loopN, (x) => inputArray));
-    return this.takeTo(targetLength, pre);
+    const inputSum = sum(inputArray);
+    const loopN = Math.ceil(targetLength / inputSum);
+    const pre = R.flatten(buildArray(loopN, (x) => inputArray));
+    return takeTo(targetLength, pre);
 }
 
 //Non ramda version:
@@ -139,10 +136,7 @@ function shuffle(array) {
     return array.reduceRight(
         (acc, _, currentIndex) => {
             const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
-            [acc[currentIndex], acc[randomIndex]] = [
-                acc[randomIndex],
-                acc[currentIndex],
-            ];
+            [acc[currentIndex], acc[randomIndex]] = [acc[randomIndex], acc[currentIndex]];
             return acc;
         },
         [...array]
@@ -176,4 +170,6 @@ module.exports = {
     buildZip,
     shuffle,
     gatherBySubstring,
+    flipBooleans,
+    sum,
 };
