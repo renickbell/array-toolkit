@@ -8,7 +8,7 @@
 
 const R = require('ramda');
 //requiring it locally:
-const buildArray = require('./dataToArray.js').buildArray;
+// let buildArray = require('./dataToArray.js').buildArray;
 
 //Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
 //Generated with Chatgpt:
@@ -49,7 +49,7 @@ function removeAllInstance(arr, item) {
 }
 
 function removeFirstInstance(arr, item){
-    const index = arr.indexOf(item);
+    let index = arr.indexOf(item);
     if (index > -1){
          arr.splice(index, 1)
     }
@@ -78,7 +78,7 @@ function sum(array) {
 }
 
 function scaleToSum(span, vals) {
-    const inputSum = sum(vals);
+    let inputSum = this.sum(vals);
     return vals.map((x) => (x * span) / inputSum);
 }
 
@@ -87,7 +87,7 @@ function pick(inputArray) {
 }
 
 function pickN(n, inputArray) {
-    return buildArray(n, (i) => pick(inputArray));
+    return this.buildArray(n, (i) => pick(inputArray));
 }
 
 function low2HighSort(inputArray) {
@@ -104,7 +104,7 @@ function takeN(inputArray, n) {
 
 function takeTo(targetLength, inputArray) {
   let outputSum = 0;
-  const output = inputArray.reduce((acc, nextVal) => {
+  let output = inputArray.reduce((acc, nextVal) => {
     if (outputSum < targetLength) {
       acc.push(nextVal);
       outputSum += nextVal;
@@ -112,17 +112,17 @@ function takeTo(targetLength, inputArray) {
     return acc;
   }, []);
   if (outputSum > targetLength) {
-    const difference = outputSum - targetLength;
+    let difference = outputSum - targetLength;
     output[output.length - 1] -= difference;
   }
   return output;
 }
 
 function loopTo(targetLength, inputArray) {
-    const inputSum = sum(inputArray);
-    const loopN = Math.ceil(targetLength / inputSum);
-    const pre = R.flatten(buildArray(loopN, (x) => inputArray));
-    return takeTo(targetLength, pre);
+    let inputSum = this.sum(inputArray);
+    let loopN = Math.ceil(targetLength / inputSum);
+    let pre = R.flatten(buildArray(loopN, (x) => inputArray));
+    return this.takeTo(targetLength, pre);
 }
 
 //Non ramda version:
@@ -149,7 +149,7 @@ function buildZip(a, b) {
 function shuffle(array) {
     return array.reduceRight(
         (acc, _, currentIndex) => {
-            const randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+            let randomIndex = Math.floor(Math.random() * (currentIndex + 1));
             [acc[currentIndex], acc[randomIndex]] = [acc[randomIndex], acc[currentIndex]];
             return acc;
         },
