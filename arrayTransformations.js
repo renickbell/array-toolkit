@@ -51,7 +51,7 @@ function removeAllInstance(arr, item) {
 function removeFirstInstance(arr, item){
     let index = arr.indexOf(item);
     if (index > -1){
-         arr.splice(index, 1)
+        return this.safeSplice(arr, 1, index)
     }
     return arr
 }
