@@ -102,22 +102,20 @@ function takeN(inputArray, n) {
     return Array.from({ length: n }, (_, index) => inputArray[index % inputArray.length]);
 }
 
-// rewrite without while
 function takeTo(targetLength, inputArray) {
-    const output = [];
-    let counter = 0;
-    let outputSum = 0;
-    while (outputSum < targetLength) {
-        const nextVal = inputArray[counter % inputArray.length];
-        output.push(nextVal);
-        outputSum += nextVal;
-        counter++;
+  let outputSum = 0;
+  const output = inputArray.reduce((acc, nextVal) => {
+    if (outputSum < targetLength) {
+      acc.push(nextVal);
+      outputSum += nextVal;
     }
-    if (outputSum > targetLength) {
-        let difference = outputSum - targetLength;
-        output[output.length - 1] = output[output.length - 1] - difference;
-    }
-    return output;
+    return acc;
+  }, []);
+  if (outputSum > targetLength) {
+    const difference = outputSum - targetLength;
+    output[output.length - 1] -= difference;
+  }
+  return output;
 }
 
 function loopTo(targetLength, inputArray) {
