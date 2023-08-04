@@ -99,11 +99,11 @@ function matchesOneOf(candidates, thing) {
 // Generic function to find index values based on a comparator function
 function getIndexValues(inputArray, comparatorFn) {
     let currentIndexValues = [];
-    for (let i = 0; i < inputArray.length; i++) {
+    inputArray.forEach((x, i) =>{
         if (currentIndexValues.length === 0) {
             currentIndexValues.push([i, inputArray[i]]);
         } else {
-            const comparisonResult = comparatorFn(
+            let comparisonResult = comparatorFn(
                 inputArray[i],
                 currentIndexValues[0][1]
             );
@@ -113,7 +113,7 @@ function getIndexValues(inputArray, comparatorFn) {
                 currentIndexValues.push([i, inputArray[i]]);
             }
         }
-    }
+    })
     return currentIndexValues;
 }
 
