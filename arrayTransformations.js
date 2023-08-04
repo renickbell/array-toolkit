@@ -58,7 +58,7 @@ function removeFirstInstance(arr, item){
 
 function removeAtIndex(arr, item, index){
     if (arr[index] == item){
-        arr.splice(index, 1)
+         return this.safeSplice(arr, 1, index)
     }
     return arr
 }
