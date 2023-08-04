@@ -45,7 +45,7 @@ function findMostFrequentItem(array) {
     let itemCounts = new Map();
     let maxItem = array[0];
     let maxCount = 0;
-    for (let i = 0; i < array.length; i++) {
+    array.forEach((x, i) => {
         let item = array[i];
         if (itemCounts.has(item)) {
             itemCounts.set(item, itemCounts.get(item) + 1);
@@ -57,7 +57,7 @@ function findMostFrequentItem(array) {
             maxItem = item;
             maxCount = currentCount;
         }
-    }
+    })
     return maxItem;
 }
 
