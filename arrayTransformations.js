@@ -102,6 +102,7 @@ function takeN(inputArray, n) {
     return Array.from({ length: n }, (_, index) => inputArray[index % inputArray.length]);
 }
 
+// rewrite without while
 function takeTo(targetLength, inputArray) {
     const output = [];
     let counter = 0;
