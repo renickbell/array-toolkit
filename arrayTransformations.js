@@ -6,7 +6,6 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-const R = require('ramda');
 //requiring it locally:
 // let buildArray = require('./dataToArray.js').buildArray;
 
@@ -35,6 +34,7 @@ function resizeArray(number, array) {
     return expandedArray.slice(0, number);
 }
 
+//Similar to the built-in slice function but with additional arguments that decide how many items to remove in a array and what they will be replaced with.
 function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
     let array1 = inputArray.slice(0, indexToRemove);
     if (replaceWith != undefined) {
@@ -67,6 +67,7 @@ function removeMultipleItems(arr, itemsToRemove) {
     return arr.filter((x) => !itemsToRemove.includes(x));
 }
 
+//Takes an input array and scales its values from a given input range to a specified output range.
 function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
     let scale = (outputMax - outputMin) / (inputMax - inputMin);
@@ -77,31 +78,38 @@ function sum(array) {
     return array.reduce((x, acc) => x + acc, 0);
 }
 
+//scales the elements in the "vals" array proportionally based on the desired "span".
 function scaleToSum(span, vals) {
     let inputSum = this.sum(vals);
     return vals.map((x) => (x * span) / inputSum);
 }
 
+//Picks an item randomly in an array.
 function pick(inputArray) {
     return inputArray[Math.round((inputArray.length - 1) * Math.random())];
 }
 
+//Picks multiple items randomly in an array.
 function pickN(n, inputArray) {
     return this.buildArray(n, (i) => pick(inputArray));
 }
 
+//Sort the numbers in an array from small to big.
 function low2HighSort(inputArray) {
     return inputArray.sort((a, b) => a - b);
 }
 
+//Sort the numbers in an array from big to small.
 function high2LowSort(inputArray) {
     return inputArray.sort((a, b) => b - a);
 }
 
+//Takes a specific amount of items in an array. If the desired amount of items is longer than the length of the array, repeats it.
 function takeN(inputArray, n) {
     return Array.from({ length: n }, (_, index) => inputArray[index % inputArray.length]);
 }
 
+//Constructs an output array by repeatedly taking elements from the inputArray until the length of the output reaches the targetLength.
 function takeTo(targetLength, inputArray) {
   let outputSum = 0;
   let output = inputArray.reduce((acc, nextVal) => {
@@ -118,6 +126,7 @@ function takeTo(targetLength, inputArray) {
   return output;
 }
 
+//Loops an array until its length meets the target length.
 function loopTo(targetLength, inputArray) {
     let inputSum = this.sum(inputArray);
     let loopN = Math.ceil(targetLength / inputSum);
@@ -146,6 +155,7 @@ function buildZip(a, b) {
     return R.zipWith(R.concat, a, b);
 }
 
+//Shuffle the order of items in an array.
 function shuffle(array) {
     return array.reduceRight(
         (acc, _, currentIndex) => {
@@ -157,10 +167,12 @@ function shuffle(array) {
     );
 }
 
+//Filters the inputArray based on whether any of the substrings in substringArray are found in each element.
 function gatherBySubstring(inputArray, substringArray) {
     return inputArray.filter((x) => substringArray.some((y) => x.includes(y)));
 }
 
+//Flips a bolean. If input is true, returns false. If inputs is false, return true.
 function flipBooleans(arr) {
     return arr.map((a) => !a);
 }
