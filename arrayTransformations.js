@@ -9,21 +9,8 @@
 //requiring it locally:
 // let buildArray = require('./dataToArray.js').buildArray;
 
-//Takes the length the array should be changed into as argument. If array longer, will shorten array. If array shorter will loop the array until desiredLength:
-//Generated with Chatgpt:
-function adjustArrayLength(number, array) {
-    let arrayLength = array.length;
-    if (arrayLength === number) {
-        return array;
-    } else if (arrayLength < number) {
-        let numCopies = Math.ceil(number / arrayLength);
-        return array.concat(...Array(numCopies).fill(array)).slice(0, number);
-    } else {
-        return array.slice(0, number);
-    }
-}
-
 //Set a size of the array and the array will be expanded or shrunk to fix that size. To expand it will just loop the array:
+//Does the same thing as adjustArrayLength but does it differently
 function resizeArray(number, array) {
     let arrayLength = array.length;
     if (arrayLength >= number) {
