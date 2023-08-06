@@ -103,6 +103,9 @@ function takeN(inputArray, n) {
 
 //Constructs an output array by repeatedly taking elements from the inputArray until the length of the output reaches the targetLength.
 function takeTo(targetLength, inputArray) {
+  if (targetLength === 0){
+      return [0]
+  }
   let outputSum = 0;
   let output = inputArray.reduce((acc, nextVal) => {
     if (outputSum < targetLength) {
