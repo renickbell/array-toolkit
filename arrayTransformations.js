@@ -99,6 +99,7 @@ function removeMultipleItems(arr, itemsToRemove) {
  * @param {number} inputMax - The maximum value of the input range.
  * @param {number} outputMin - The minimum value of the desired output range.
  * @param {number} outputMax - The maximum value of the desired output range.
+ * @example console.log(scaleToRange([10, 20, 30, 40, 50], 10, 50, 0 , 100)) //[0, 25, 50, 75, 100]
  */
 function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
@@ -106,18 +107,35 @@ function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
     return inputArray.map((x) => (x - inputMin) * scale + outputMin);
 }
 
-//Adds up all of the numbers in the array.
+/*
+  * Adds up all of the numbers in the array.
+  * @param {number[]} array - an array of numbers to sum up
+  * @example console.log(sum([1,2,3])) //6
+**/ 
 function sum(array) {
     return array.reduce((x, acc) => x + acc, 0);
 }
 
-//scales the elements in the "vals" array proportionally based on the desired "span".
+/*
+  * scales the elements in the "vals" array proportionally based on the desired "span".
+  * @param {number} span - The desired sum to scale the values to.
+  * @param {number[]} vals - An array of numerical values to be scaled.
+  * @example console.log(scaleToSum(100, [10,20,30,40,50])) //[6.666666666666667, 13.333333333333334, 20, 26.666666666666668, 33.333333333333336]
+**/
 function scaleToSum(span, vals) {
     let inputSum = this.sum(vals);
     return vals.map((x) => (x * span) / inputSum);
 }
 
-//Picks an item randomly in an array.
+/**
+  * Picks an item randomly in an array.
+  * @param {array} inputArray - the array to pick an item from
+  * @example 
+  * console.log(pick([1,2,3,4])) //4
+  * console.log(pick([1,2,3,4])) //1
+  * console.log(pick([1,2,3,4])) //2
+  * console.log(pick([1,2,3,4])) //3
+*/
 function pick(inputArray) {
     return inputArray[Math.round((inputArray.length - 1) * Math.random())];
 }
