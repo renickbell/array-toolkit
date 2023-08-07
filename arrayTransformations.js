@@ -12,8 +12,8 @@
 /**
   * Set a size of the array and the array will be expanded or shrunk to fix that size. To expand it will just loop the array:
   * Does the same thing as adjustArrayLength but does it differently
-  * @param {number} the desired length of adjusted array
-  * @param {array} the array to modify
+  * @param {number} number - the desired length of adjusted array
+  * @param {array} array - the array to modify
   * @example console.log(resizeArray(5, [0,1,2])) // [0, 1, 2, 0, 1]
 */
 function resizeArray(number, array) {
@@ -28,10 +28,11 @@ function resizeArray(number, array) {
 
 /**
   * Similar to the built-in slice function but with additional arguments that decide how many items to remove in a array and what they will be replaced with.
-  * @param {inputArray} the array to modify
-  * @param {amountToRemove} the amount of items to remove in inputArray
-  * @param {indexToRemove} which index to remove from
-  * @param {replaceWith} what to replace the removed items with (optional)
+  * @param {array} inputArray - the array to modify
+  * @param {number} amountToRemove -  the amount of items to remove in inputArray
+  * @param {number} indexToRemove - which index to remove from
+  * @param replaceWith - what to replace the removed items with (optional)
+  * @example console.log(safeSplice([0,1,2,3,4,5,6,7], 3, 3, "tortoise")) //[0, 1, 2, 'tortoise', 6, 7]
 */
 function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
     let array1 = inputArray.slice(0, indexToRemove);
@@ -42,12 +43,23 @@ function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
     return array1.concat(array2);
 }
 
-//Remove all instances of an item in an array.
+/**
+  * Remove all instances of an item in an array.
+  * @param {array} arr - the array to modify
+  * @param item - the item/items to remove
+  * @example console.log(removeAllInstance([1,2,3,4,3,2,1], 3)) //[1, 2, 4, 2, 1]
+  */
 function removeAllInstance(arr, item) {
     return arr.filter((f) => f !== item);
 }
 
-//Removes an item the first time it appears.
+
+/**
+  * Removes an item the first time it appears.
+  * @param {array} arr - the array to modify
+  * @param item - the item/items to remove
+  * @example console.log(removeFirstInstance([1,2,3,4,3,2,1], 3)) //[1, 2, 4, 3, 2, 1]
+*/
 function removeFirstInstance(arr, item){
     let index = arr.indexOf(item);
     if (index > -1){
@@ -56,7 +68,12 @@ function removeFirstInstance(arr, item){
     return arr
 }
 
-//Remove the item at a specific index of an array.
+/**Remove the item at a specific index of an array.
+  * @param {array} arr - the array to modify
+  * @param item - the item to remove
+  * @param {number} index - index to remove
+  * @example console.log(removeAtIndex([1,2,3,4,3,2,1], 4, 3)) //[1, 2, 3, 3, 2, 1]
+*/
 function removeAtIndex(arr, item, index){
     if (arr[index] == item){
          return this.safeSplice(arr, 1, index)
@@ -64,12 +81,25 @@ function removeAtIndex(arr, item, index){
     return arr
 }
 
-//Takes two arrays as arguments. The second array is the items to remove from the first array.
+/**
+  * Takes two arrays as arguments. The second array is the items to remove from the first array.
+  * @param {array} arr - array to modify
+  * @param item - what items to remove as an array
+  * @example console.log(removeMultipleItems([1,2,3,4,3,2,1], [2,3])) //[1, 4, 1]
+*/
 function removeMultipleItems(arr, itemsToRemove) {
     return arr.filter((x) => !itemsToRemove.includes(x));
 }
 
-//Takes an input array and scales its values from a given input range to a specified output range.
+/**
+ * Scales an array of values from a given input range to a desired output range.
+ *
+ * @param {array} inputArray - An array of numbers to be scaled.
+ * @param {number} inputMin - The minimum value of the input range.
+ * @param {number} inputMax - The maximum value of the input range.
+ * @param {number} outputMin - The minimum value of the desired output range.
+ * @param {number} outputMax - The maximum value of the desired output range.
+ */
 function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMax) {
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
     let scale = (outputMax - outputMin) / (inputMax - inputMin);
