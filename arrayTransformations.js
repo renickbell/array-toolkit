@@ -9,7 +9,13 @@
 //requiring it locally:
 // let buildArray = require('./dataToArray.js').buildArray;
 
-//Set a size of the array and the array will be expanded or shrunk to fix that size. To expand it will just loop the array:
+/**
+  * Set a size of the array and the array will be expanded or shrunk to fix that size. To expand it will just loop the array:
+  * Does the same thing as adjustArrayLength but does it differently
+  * @param {number} the desired length of adjusted array
+  * @param {array} the array to modify
+  * @example console.log(resizeArray(5, [0,1,2])) // [0, 1, 2, 0, 1]
+*/
 function resizeArray(number, array) {
     let arrayLength = array.length;
     if (arrayLength >= number) {
@@ -20,7 +26,13 @@ function resizeArray(number, array) {
     return expandedArray.slice(0, number);
 }
 
-//Similar to the built-in slice function but with additional arguments that decide how many items to remove in a array and what they will be replaced with.
+/**
+  * Similar to the built-in slice function but with additional arguments that decide how many items to remove in a array and what they will be replaced with.
+  * @param {inputArray} the array to modify
+  * @param {amountToRemove} the amount of items to remove in inputArray
+  * @param {indexToRemove} which index to remove from
+  * @param {replaceWith} what to replace the removed items with (optional)
+*/
 function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWith) {
     let array1 = inputArray.slice(0, indexToRemove);
     if (replaceWith != undefined) {
