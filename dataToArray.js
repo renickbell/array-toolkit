@@ -11,7 +11,6 @@ function buildArray(n, fillFunction) {
     return Array.from({ length: n }, (_, i) => fillFunction(i));
 }
 
-// modify so that it doesn't have crash potential
 //Linear array returns a number array where all the numbers are increasing orer. Start is the starting point and the first number. Step is thte difference between each number and numberOfSteps is the length of the array returned.
 function linearArray(start, step, numberOfSteps) {
     let output = this.buildArray(numberOfSteps, (i) => start + i * step);
