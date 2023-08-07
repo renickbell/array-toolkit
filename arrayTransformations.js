@@ -10,7 +10,6 @@
 // let buildArray = require('./dataToArray.js').buildArray;
 
 //Set a size of the array and the array will be expanded or shrunk to fix that size. To expand it will just loop the array:
-//Does the same thing as adjustArrayLength but does it differently
 function resizeArray(number, array) {
     let arrayLength = array.length;
     if (arrayLength >= number) {
@@ -179,7 +178,6 @@ function flipBooleans(arr) {
 }
 
 module.exports = {
-    adjustArrayLength,
     resizeArray,
     safeSplice,
     removeAllInstance,
