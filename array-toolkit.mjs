@@ -6,10 +6,7 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
-const R = require('ramda')
-const fs = require('fs');
-const path = require('path');
-
 export * from './arrayTransformations.mjs'
 export * from './dataToArray.mjs'
 export * from './infoFromArray.mjs'
+export const R = require('ramda')
