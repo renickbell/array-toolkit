@@ -5,12 +5,12 @@
   "name": "array-toolkit",
   "description": "## Some dope tools for Javascript array manipulation.",
   "version": "2.0.0",
-  "main": "array-toolkit.js",
+  "main": "array-toolkit.mjs",
   "files": [
-    "array-toolkit.js",
-    "arrayTransformations.js",
-    "dataToArray.js",
-    "infoFromArray.js"
+    "array-toolkit.mjs",
+    "arrayTransformations.mjs",
+    "dataToArray.mjs",
+    "infoFromArray.mjs"
   ],
   "devDependencies": {},
   "scripts": {
