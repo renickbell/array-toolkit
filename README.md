@@ -18,7 +18,7 @@ npm i array-toolkit
 ## Usage:
 
 ```
-const A = require('array-toolkit')
+const A = await import('./array-toolkit.mjs')
 ```
 
 ## Development
