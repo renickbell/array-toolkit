@@ -4,7 +4,7 @@
   },
   "name": "array-toolkit",
   "description": "## Some dope tools for Javascript array manipulation.",
-  "version": "1.4.2",
+  "version": "2.0.0",
   "main": "array-toolkit.js",
   "files": [
     "array-toolkit.js",
