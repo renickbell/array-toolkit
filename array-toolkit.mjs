@@ -9,4 +9,5 @@
 export * from './arrayTransformations.mjs'
 export * from './dataToArray.mjs'
 export * from './infoFromArray.mjs'
-export const R = require('ramda')
+export const R = await import('ramda')
+
