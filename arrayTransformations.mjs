@@ -108,15 +108,6 @@ export function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMa
 }
 
 /*
-  * Adds up all of the numbers in the array.
-  * @param {number[]} array - an array of numbers to sum up
-  * @example console.log(sum([1,2,3])) //6
-**/ 
-export function sum(array) {
-    return array.reduce((x, acc) => x + acc, 0);
-}
-
-/*
   * scales the elements in the "vals" array proportionally based on the desired "span".
   * @param {number} span - The desired sum to scale the values to.
   * @param {number[]} vals - An array of numerical values to be scaled.
