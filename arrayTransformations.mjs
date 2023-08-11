@@ -8,6 +8,7 @@
 
 //requiring it locally:
 import { buildArray } from './dataToArray.mjs';
+import { sum } from './infoFromArray.mjs';
 import * as R from 'ramda';
 
 /**
@@ -105,10 +106,6 @@ export function scaleToRange(inputArray, inputMin, inputMax, outputMin, outputMa
     // add a check to make sure that inputMin and inputMax are not exceeded by values in inputArray?
     let scale = (outputMax - outputMin) / (inputMax - inputMin);
     return inputArray.map((x) => (x - inputMin) * scale + outputMin);
-}
-
-export function sum(array) {
-    return array.reduce((acc, x) => x + acc, 0);
 }
 
 /*
