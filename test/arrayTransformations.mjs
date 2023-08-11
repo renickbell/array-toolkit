@@ -2,10 +2,10 @@ import assert from 'node:assert';
 import test from 'node:test';
 
 import {
-    adjustArrayLength,
     resizeArray,
     safeSplice,
-    removeItem,
+    removeFirstInstance,
+    removeAllInstance,
     removeMultipleItems,
     scaleToRange,
     scaleToSum,
@@ -21,62 +21,27 @@ import {
     shuffle,
     gatherBySubstring,
     flipBooleans,
-} from '../arrayTransformations.js';
-
-test('adjustArrayLength', async (t) => {
-    await t.test('same length', () => {
-        const result = adjustArrayLength(3, [1, 2, 3]);
-        assert.equal(result.length, 3);
-        assert.deepStrictEqual(result, [1, 2, 3]);
-    });
-
-    await t.test('smaller length', () => {
-        const result = adjustArrayLength(3, [1, 2]);
-        assert.equal(result.length, 3);
-        assert.deepStrictEqual(result, [1, 2, 1]);
-    });
-
-    await t.test('larger length', () => {
-        const result = adjustArrayLength(3, [1, 2, 3, 4]);
-        assert.equal(result.length, 3);
-        assert.deepStrictEqual(result, [1, 2, 3]);
-    });
-
-    // TODO: Error type shold be considered.
-    await t.test('array is empty (TODO: Error type shold be considered)', () => {
-        assert.throws(() => adjustArrayLength(3, []), {
-            name: 'RangeError',
-            message: 'Invalid array length',
-        });
-    });
-
-    // TODO: Error type shold be considered.
-    await t.test('array is null (TODO: Error type shold be considered)', () => {
-        assert.throws(() => adjustArrayLength(3, null), {
-            name: 'TypeError',
-            message: "Cannot read properties of null (reading 'length')",
-        });
-    });
-});
+    removeAtIndex,
+} from '../arrayTransformations.mjs';
 
 // Note: It looks that the result of `resizeArray` is same as `adjustArrayLength`.
 test('resizeArray', async (t) => {
     await t.test('same size', () => {
-        const result = resizeArray(3, [1, 2, 3]);
-        assert.equal(result.length, 3);
-        assert.deepStrictEqual(result, [1, 2, 3]);
+        const actual = resizeArray(3, [1, 2, 3]);
+        assert.equal(actual.length, 3);
+        assert.deepStrictEqual(actual, [1, 2, 3]);
     });
 
     await t.test('smaller size', () => {
-        const result = resizeArray(3, [1, 2]);
-        assert.equal(result.length, 3);
-        assert.deepStrictEqual(result, [1, 2, 1]);
+        const actual = resizeArray(3, [1, 2]);
+        assert.equal(actual.length, 3);
+        assert.deepStrictEqual(actual, [1, 2, 1]);
     });
 
     await t.test('larger size', () => {
-        const result = resizeArray(3, [1, 2, 3, 4]);
-        assert.equal(result.length, 3);
-        assert.deepStrictEqual(result, [1, 2, 3]);
+        const actual = resizeArray(3, [1, 2, 3, 4]);
+        assert.equal(actual.length, 3);
+        assert.deepStrictEqual(actual, [1, 2, 3]);
     });
 
     // TODO: Error type shold be considered.
@@ -98,38 +63,38 @@ test('resizeArray', async (t) => {
 
 test('safeSplice', async (t) => {
     await t.test('splice without replaceWith', () => {
-        const result = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 3);
-        assert.deepStrictEqual(result, [1, 2, 3, 6, 7]);
+        const actual = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 3);
+        assert.deepStrictEqual(actual, [1, 2, 3, 6, 7]);
     });
 
     await t.test('splice with replaceWith', () => {
-        const result = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 3, 99);
-        assert.deepStrictEqual(result, [1, 2, 3, 99, 6, 7]);
+        const actual = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 3, 99);
+        assert.deepStrictEqual(actual, [1, 2, 3, 99, 6, 7]);
     });
 
     await t.test('splice with replaceWith array', () => {
-        const result = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 3, [100, 200, 300]);
-        assert.deepStrictEqual(result, [1, 2, 3, [100, 200, 300], 6, 7]);
+        const actual = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 3, [100, 200, 300]);
+        assert.deepStrictEqual(actual, [1, 2, 3, [100, 200, 300], 6, 7]);
     });
 
     await t.test('amount is larger than array length', () => {
-        const result = safeSplice([1, 2, 3, 4, 5, 6, 7], 20, 3);
-        assert.deepStrictEqual(result, [1, 2, 3]);
+        const actual = safeSplice([1, 2, 3, 4, 5, 6, 7], 20, 3);
+        assert.deepStrictEqual(actual, [1, 2, 3]);
     });
 
     await t.test('index is larger than array length', () => {
-        const result = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 9);
-        assert.deepStrictEqual(result, [1, 2, 3, 4, 5, 6, 7]);
+        const actual = safeSplice([1, 2, 3, 4, 5, 6, 7], 2, 9);
+        assert.deepStrictEqual(actual, [1, 2, 3, 4, 5, 6, 7]);
     });
 
     await t.test('array is empty without replaceWith', () => {
-        const result = safeSplice([], 2, 3);
-        assert.deepStrictEqual(result, []);
+        const actual = safeSplice([], 2, 3);
+        assert.deepStrictEqual(actual, []);
     });
 
     await t.test('array is empty with replaceWith', () => {
-        const result = safeSplice([], 2, 3, 100);
-        assert.deepStrictEqual(result, [100]);
+        const actual = safeSplice([], 2, 3, 100);
+        assert.deepStrictEqual(actual, [100]);
     });
 
     // TODO: Error type shold be considered.
@@ -149,30 +114,30 @@ test('safeSplice', async (t) => {
     });
 });
 
-test('removeItem', async (t) => {
+test('removeAllInstance', async (t) => {
     await t.test('remove item', () => {
-        const result = removeItem([1, 2, 3], 2);
-        assert.deepStrictEqual(result, [1, 3]);
+        const actual = removeAllInstance([1, 2, 3], 2);
+        assert.deepStrictEqual(actual, [1, 3]);
     });
 
     await t.test('remove multiple items', () => {
-        const result = removeItem([1, 2, 3, 4, 2, 5, 2, 6, 2], 2);
-        assert.deepStrictEqual(result, [1, 3, 4, 5, 6]);
+        const actual = removeAllInstance([1, 2, 3, 4, 2, 5, 2, 6, 2], 2);
+        assert.deepStrictEqual(actual, [1, 3, 4, 5, 6]);
     });
 
     await t.test('remove nothing', () => {
-        const result = removeItem([1, 2, 3, 4, 5, 6], 7);
-        assert.deepStrictEqual(result, [1, 2, 3, 4, 5, 6]);
+        const actual = removeAllInstance([1, 2, 3, 4, 5, 6], 7);
+        assert.deepStrictEqual(actual, [1, 2, 3, 4, 5, 6]);
     });
 
     await t.test('array is empty', () => {
-        const result = removeItem([], 2);
-        assert.deepStrictEqual(result, []);
+        const actual = removeAllInstance([], 2);
+        assert.deepStrictEqual(actual, []);
     });
 
     // TODO: Error type shold be considered.
     await t.test('array is null (TODO: Error type shold be considered)', () => {
-        assert.throws(() => removeItem(null, 2), {
+        assert.throws(() => removeAllInstance(null, 2), {
             name: 'TypeError',
             message: "Cannot read properties of null (reading 'filter')",
         });
@@ -181,18 +146,18 @@ test('removeItem', async (t) => {
 
 test('removeMultipleItems', async (t) => {
     await t.test('remove items', () => {
-        const result = removeMultipleItems([1, 2, 3, 4, 5, 6], [3, 5]);
-        assert.deepStrictEqual(result, [1, 2, 4, 6]);
+        const actual = removeMultipleItems([1, 2, 3, 4, 5, 6], [3, 5]);
+        assert.deepStrictEqual(actual, [1, 2, 4, 6]);
     });
 
     await t.test("items aren't available", () => {
-        const result = removeMultipleItems([1, 2, 3, 4, 5, 6], [7, 8, 9]);
-        assert.deepStrictEqual(result, [1, 2, 3, 4, 5, 6]);
+        const actual = removeMultipleItems([1, 2, 3, 4, 5, 6], [7, 8, 9]);
+        assert.deepStrictEqual(actual, [1, 2, 3, 4, 5, 6]);
     });
 
     await t.test('items is empty', () => {
-        const result = removeMultipleItems([1, 2, 3, 4, 5, 6], []);
-        assert.deepStrictEqual(result, [1, 2, 3, 4, 5, 6]);
+        const actual = removeMultipleItems([1, 2, 3, 4, 5, 6], []);
+        assert.deepStrictEqual(actual, [1, 2, 3, 4, 5, 6]);
     });
 
     // TODO: Error type shold be considered.
@@ -212,8 +177,8 @@ test('removeMultipleItems', async (t) => {
     });
 
     await t.test('array is empty', () => {
-        const result = removeMultipleItems([], [4, 6]);
-        assert.deepStrictEqual(result, []);
+        const actual = removeMultipleItems([], [4, 6]);
+        assert.deepStrictEqual(actual, []);
     });
 
     // TODO: Error type shold be considered.
@@ -227,22 +192,22 @@ test('removeMultipleItems', async (t) => {
 
 test('scaleToRange', async (t) => {
     await t.test('1 to 10 -> 10 to 100', () => {
-        const result = scaleToRange([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 10, 100);
-        assert.deepStrictEqual(result, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
+        const actual = scaleToRange([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 10, 100);
+        assert.deepStrictEqual(actual, [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]);
     });
 
     await t.test('1 to 10 -> 10 to 1', () => {
-        const result = scaleToRange([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 10, 1);
-        assert.deepStrictEqual(result, [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
+        const actual = scaleToRange([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1, 10, 10, 1);
+        assert.deepStrictEqual(actual, [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]);
     });
 
     // TODO: TODO: should consider for Floating Point Arithmetic (IEEE 754 https://en.wikipedia.org/wiki/IEEE_754  await t.test(
     await t.test(
         '0 to 1 -> 0 to 127 (like MIDI value) (TODO: should consider for Floating Point Arithmetic (IEEE 754 https://en.wikipedia.org/wiki/IEEE_754))',
         () => {
-            const result = scaleToRange([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], 0, 1, 0, 127);
+            const actual = scaleToRange([0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1], 0, 1, 0, 127);
             assert.deepStrictEqual(
-                result,
+                actual,
                 [
                     0, 12.700000000000001, 25.400000000000002, 38.1, 50.800000000000004, 63.5, 76.2, 88.89999999999999,
                     101.60000000000001, 114.3, 127,
@@ -253,8 +218,8 @@ test('scaleToRange', async (t) => {
 });
 test('scaleToSum', async (t) => {
     await t.test('10 times / sum 6', () => {
-        const result = scaleToSum(10, [1, 2, 3]);
-        assert.deepStrictEqual(result, [10 / 6, 20 / 6, 30 / 6]);
+        const actual = scaleToSum(10, [1, 2, 3]);
+        assert.deepStrictEqual(actual, [10 / 6, 20 / 6, 30 / 6]);
     });
 
     await t.test('array is null', () => {
@@ -270,13 +235,13 @@ test('pick', async (t) => {
     const tmpFn = Math.random;
     Math.random = () => 0.5;
     await t.test('pick center value in odd array', () => {
-        const result = pick([1, 2, 3, 4, 5]);
-        assert.equal(result, 3);
+        const actual = pick([1, 2, 3, 4, 5]);
+        assert.equal(actual, 3);
     });
 
     await t.test('pick upper index in even array', () => {
-        const result = pick([1, 2, 3, 4, 5, 6]);
-        assert.equal(result, 4);
+        const actual = pick([1, 2, 3, 4, 5, 6]);
+        assert.equal(actual, 4);
     });
 
     await t.test('array is null (TODO: Error type shold be considered)', () => {
@@ -294,23 +259,23 @@ test('pickN', async (t) => {
     const tmpFn = Math.random;
     Math.random = () => 0.5;
     await t.test('pick center value in odd array', () => {
-        const result = pickN(5, [1, 2, 3, 4, 5]);
-        assert.deepStrictEqual(result, [3, 3, 3, 3, 3]);
+        const actual = pickN(5, [1, 2, 3, 4, 5]);
+        assert.deepStrictEqual(actual, [3, 3, 3, 3, 3]);
     });
 
     await t.test('pick upper index in even array', () => {
-        const result = pickN(5, [1, 2, 3, 4, 5, 6]);
-        assert.deepStrictEqual(result, [4, 4, 4, 4, 4]);
+        const actual = pickN(5, [1, 2, 3, 4, 5, 6]);
+        assert.deepStrictEqual(actual, [4, 4, 4, 4, 4]);
     });
 
     await t.test('pick 0 length', () => {
-        const result = pickN(0, [1, 2, 3, 4, 5, 6]);
-        assert.deepStrictEqual(result, []);
+        const actual = pickN(0, [1, 2, 3, 4, 5, 6]);
+        assert.deepStrictEqual(actual, []);
     });
 
     await t.test('pick -1 length', () => {
-        const result = pickN(-1, [1, 2, 3, 4, 5, 6]);
-        assert.deepStrictEqual(result, []);
+        const actual = pickN(-1, [1, 2, 3, 4, 5, 6]);
+        assert.deepStrictEqual(actual, []);
     });
 
     await t.test('array is null (TODO: Error type shold be considered)', () => {
@@ -326,13 +291,13 @@ test('pickN', async (t) => {
 
 test('low2HighSort', async (t) => {
     await t.test('low to high', () => {
-        const result = low2HighSort([8, 2, 4, 9, 6, 7, 1, 3, 5]);
-        assert.deepStrictEqual(result, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
+        const actual = low2HighSort([8, 2, 4, 9, 6, 7, 1, 3, 5]);
+        assert.deepStrictEqual(actual, [1, 2, 3, 4, 5, 6, 7, 8, 9]);
     });
 
     await t.test('array is empty', () => {
-        const result = low2HighSort([]);
-        assert.deepStrictEqual(result, []);
+        const actual = low2HighSort([]);
+        assert.deepStrictEqual(actual, []);
     });
 
     await t.test('array is null (TODO: Error type shold be considered)', () => {
@@ -345,13 +310,13 @@ test('low2HighSort', async (t) => {
 
 test('high2LowSort', async (t) => {
     await t.test('high to low', () => {
-        const result = high2LowSort([8, 2, 4, 9, 6, 7, 1, 3, 5]);
-        assert.deepStrictEqual(result, [9, 8, 7, 6, 5, 4, 3, 2, 1]);
+        const actual = high2LowSort([8, 2, 4, 9, 6, 7, 1, 3, 5]);
+        assert.deepStrictEqual(actual, [9, 8, 7, 6, 5, 4, 3, 2, 1]);
     });
 
     await t.test('array is empty', () => {
-        const result = high2LowSort([]);
-        assert.deepStrictEqual(result, []);
+        const actual = high2LowSort([]);
+        assert.deepStrictEqual(actual, []);
     });
 
     // TODO
@@ -365,29 +330,29 @@ test('high2LowSort', async (t) => {
 
 test('takeN', async (t) => {
     await t.test('n is smaller than length', () => {
-        const result = takeN([1, 2, 3, 4, 5, 6, 7, 8, 9], 3);
-        assert.deepStrictEqual(result, [1, 2, 3]);
+        const actual = takeN([1, 2, 3, 4, 5, 6, 7, 8, 9], 3);
+        assert.deepStrictEqual(actual, [1, 2, 3]);
     });
 
     await t.test('n is bigger than length', () => {
-        const result = takeN([1, 2, 3], 5);
-        assert.deepStrictEqual(result, [1, 2, 3, 1, 2]);
+        const actual = takeN([1, 2, 3], 5);
+        assert.deepStrictEqual(actual, [1, 2, 3, 1, 2]);
     });
 
     await t.test('n is 0', () => {
-        const result = takeN([1, 2, 3], 0);
-        assert.deepStrictEqual(result, []);
+        const actual = takeN([1, 2, 3], 0);
+        assert.deepStrictEqual(actual, []);
     });
 
     await t.test('n is -1', () => {
-        const result = takeN([1, 2, 3], -1);
-        assert.deepStrictEqual(result, []);
+        const actual = takeN([1, 2, 3], -1);
+        assert.deepStrictEqual(actual, []);
     });
 
     // TODO: Maybe filled by undefined is not unexpected behavior
     await t.test('array is empty (TODO: Maybe filled by "undefined" is not unexpected behavior)', () => {
-        const result = takeN([], 3);
-        assert.deepStrictEqual(result, [undefined, undefined, undefined]);
+        const actual = takeN([], 3);
+        assert.deepStrictEqual(actual, [undefined, undefined, undefined]);
     });
 
     // TODO
@@ -401,31 +366,31 @@ test('takeN', async (t) => {
 
 test('takeTo', async (t) => {
     await t.test('n is less than sum', () => {
-        const result = takeTo(3, [1, 2, 3]);
-        assert.deepStrictEqual(result, [1, 2]);
+        const actual = takeTo(3, [1, 2, 3]);
+        assert.deepStrictEqual(actual, [1, 2]);
     });
 
     await t.test('n is bigger than sum', () => {
-        const result = takeTo(15, [1, 2, 3]);
-        assert.deepStrictEqual(result, [1, 2, 3, 1, 2, 3, 1, 2]);
+        const actual = takeTo(15, [1, 2, 3]);
+        assert.deepStrictEqual(actual, [1, 2, 3, 1, 2, 3, 1, 2]);
     });
 
     await t.test('n is 0', () => {
-        const result = takeTo(0, [1, 2, 3]);
-        assert.deepStrictEqual(result, []);
+        const actual = takeTo(0, [1, 2, 3]);
+        assert.deepStrictEqual(actual, []);
     });
 
     // FIXME: return '[ '-1': NaN ]' when -1 is given.
     await t.test('n is -1', () => {
-        const result = takeTo(-1, [1, 2, 3]);
-        assert.deepStrictEqual(result, []);
+        const actual = takeTo(-1, [1, 2, 3]);
+        assert.deepStrictEqual(actual, []);
     });
 
     // TODO
     await t.test('array is null (TODO: Error type shold be considered)', () => {
         assert.throws(() => takeTo(3, null), {
             name: 'TypeError',
-            message: "Cannot read properties of null (reading 'length')",
+            message: "Cannot read properties of null (reading 'reduce')",
         });
     });
 });
