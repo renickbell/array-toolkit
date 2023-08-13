@@ -204,7 +204,7 @@ export function takeTo(targetLength, inputArray) {
 export function loopTo(targetLength, inputArray) {
     let inputSum = this.sum(inputArray);
     let loopN = Math.ceil(targetLength / inputSum);
-    let pre = this.R.flatten(buildArray(loopN, (x) => inputArray));
+    let pre = this.R.flatten(this.buildArray(loopN, (x) => inputArray));
     return this.takeTo(targetLength, pre);
 }
 
