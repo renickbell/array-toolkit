@@ -1,18 +1,11 @@
 {
   "dependencies": {
-    "array-toolkit": "^2.0.2",
     "ramda": "^0.28.0"
   },
   "name": "array-toolkit",
-  "description": "## Some dope tools for Javascript array manipulation.",
-  "version": "2.2.2",
+  "description": "Some dope tools for Javascript array manipulation.",
+  "version": "3.0.0",
   "main": "array-toolkit.mjs",
-  "files": [
-    "array-toolkit.mjs",
-    "arrayTransformations.mjs",
-    "dataToArray.mjs",
-    "infoFromArray.mjs"
-  ],
   "scripts": {
     "test": "node --test"
   },
@@ -28,5 +21,19 @@
   "bugs": {
     "url": "https://github.com/renickbell/arrayToolkit/issues"
   },
-  "homepage": "https://github.com/renickbell/arrayToolkit#readme"
+  "homepage": "https://github.com/renickbell/arrayToolkit#readme",
+    "exports": {
+    ".": {
+      "require": "./src/array-toolkit.js",
+      "import": "./es/array-toolkit.mjs"
+    },
+    "./es/*": "./es/*.js",
+    "./src/*": "./src/*.js",
+    "./es/": "./es/",
+    "./src/": "./src/"
+  },
+    "files": [
+    "es",
+    "src"
+  ]
 }
