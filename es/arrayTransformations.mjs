@@ -171,28 +171,60 @@ export function takeN(inputArray, n) {
 }
 
 /**
+  * Removes or subtracts numbers from the number array until the total of all the numbers is equal to the endSum variable.
+  * @param {number} endSum - The total of the output array.
+  * @param {array} inputArray - The array that should be changed.
+  * @example
+  * console.log(removeUntilEqual(10, [2, 5, 3, 5, 3, 2, 1])) //[ 2, 5, 3 ]
+  * console.log(removeUntilEqual(10, [2, 5, 5, 5, 3, 2, 1])) //[ 2, 5, 3 ]
+  * console.log(removeUntilEqual(0, [10, 20, 30, 40])) //[]
+  * console.log(removeUntilEqual(- 5, [2, 3, 4 , 6])) //[]
+  * console.log(removeUntilEqual(5, [2, 2])) //[ 2, 2 ]
+*/
+export function removeUntilEqual (endSum, inputArray){
+    let originalSum = this.sum(inputArray)
+    if (endSum >= originalSum){
+        return inputArray
+    }
+    let diff = Math.abs(originalSum - endSum)
+    let outputArray = inputArray
+    inputArray.forEach((x, i) =>{
+        let targetNum = inputArray[inputArray.length - 1 - i]
+        if (diff === 0){
+            return true
+        }
+        else if (targetNum > diff === true){
+            outputArray = this.safeSplice(outputArray, 1, inputArray.length - 1 - i, targetNum - diff)
+            diff = 0
+        }
+        else {
+            diff -= targetNum
+            outputArray = this.safeSplice(outputArray, 1, inputArray.length - 1 - i)
+        }
+    })
+    return outputArray
+}
+
+/**
   * Constructs an output array by repeatedly taking elements from the inputArray until the length of the output reaches the targetLength.
   * @param {number} targetLength - the target length of the output array
   * @param {array} inputArray - the array to take items from
-  * @example 
+  * @todo negative inputs for targetLength are broken.
+  * @example
+  * console.log(takeTo(10, [1, 3, 4, 5])) //[ 1, 3, 4, 2 ]
+  * console.log(takeTo(0, [1, 3, 4, 5])) //[ 0 ]
+  * console.log(takeTo(20, [1, 3, 4, 5])) //[ 1, 3, 4, 5, 1, 3, 3 ]
 */
-export function takeTo(targetLength, inputArray) {
-  if (targetLength === 0){
+export function takeTo (targetLength, inputArray){
+    let originalSum = this.sum(inputArray)
+    if (targetLength === 0){
       return [0]
-  }
-  let outputSum = 0;
-  let output = inputArray.reduce((acc, nextVal) => {
-    if (outputSum < targetLength) {
-      acc.push(nextVal);
-      outputSum += nextVal;
     }
-    return acc;
-  }, []);
-  if (outputSum > targetLength) {
-    let difference = outputSum - targetLength;
-    output[output.length - 1] -= difference;
-  }
-  return output;
+    else if (originalSum === targetLength){
+        return inputArray
+    }
+    let repetitions = Math.ceil(targetLength / originalSum)
+    return removeUntilEqual(targetLength, R.repeat(inputArray, repetitions).flat())
 }
 
 /**
