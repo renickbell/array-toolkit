@@ -5,7 +5,6 @@
   "name": "array-toolkit",
   "description": "Some dope tools for Javascript array manipulation.",
   "version": "3.1.2",
-  "main": "array-toolkit.mjs",
   "scripts": {
     "test": "node --test"
   },
