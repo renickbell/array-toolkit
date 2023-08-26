@@ -11,7 +11,6 @@ let mergedFunctions = {}
 Object.assign(mergedFunctions, require('./arrayTransformations.js'))
 Object.assign(mergedFunctions, require('./infoFromArray.js'))
 Object.assign(mergedFunctions, require('./dataToArray.js'))
-const R = require('ramda')
-Object.assign(mergedFunctions, R)
+mergedFunctions.R = require('ramda')
 
 module.exports = mergedFunctions
