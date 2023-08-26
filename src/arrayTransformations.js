@@ -224,7 +224,7 @@ function takeTo (targetLength, inputArray){
         return inputArray
     }
     let repetitions = Math.ceil(targetLength / originalSum)
-    return removeUntilEqual(targetLength, this.R.repeat(inputArray, repetitions).flat())
+    return this.removeUntilEqual(targetLength, this.R.repeat(inputArray, repetitions).flat())
 }
     
 
