@@ -132,7 +132,7 @@ function pick(inputArray) {
 }
 
 /**
-  * Picks multiple items randomly in an array.
+  * Picks a set number of items randomly in an array.
   * @param {number} n - the desired number of item that are picked
   * @param {array} inputArray - the array to pick items from
   * @example console.log(pickN(3, [1,2,3,4,5,6,7,8,9])) //[9, 5, 8]
@@ -292,22 +292,22 @@ function shuffle(array) {
 }
 
 /**
- * Filters the inputArray based on whether any of the substrings in substringArray are found in each element.
+ * Filters the inputArray based on whether any of the substrings in substringArray are found in each element. Removes the elements in the inputArray that do not contain parts of the substringArray.
  * @param {array} inputArray - the array that is being filtered
  * @param {string} substringArray - an array of substrings to filter inputArray with
  * @example
  * const inputArray = ["apple", "banana", "cherry", "date", "grape"];
  * const substringArray = ["an", "ch", "pe"];
  * 
- * const filteredArray = gatherBySubstring(inputArray, substringArray);
- * console.log(filteredArray); //['apple', 'banana', 'cherry', 'grape']
+ * let filteredArray = gatherBySubstring(inputArray, substringArray);
+ * console.log(filteredArray); //[ 'banana', 'cherry', 'grape' ]
 */
 function gatherBySubstring(inputArray, substringArray) {
     return inputArray.filter((x) => substringArray.some((y) => x.includes(y)));
 }
 
 /**
- * Flips a bolean. If input is true, returns false. If inputs is false, return true.
+ * Goes through the array and changes false to true and true to false
  * @param {array} array - an array of booleans
  * @example console.log(flipBooleans([true, true, false, true])) //[false, false, true, false]
 */

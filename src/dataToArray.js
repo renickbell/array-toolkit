@@ -17,7 +17,7 @@ function buildArray(n, fillFunction) {
 }
 
 /**
-  * Linear array returns a number array where all the numbers are increasing orer. Start is the starting point and the first number. Step is thte difference between each number and numberOfSteps is the length of the array returned.
+  * Linear array returns a number array where all the numbers are increasing order. Start is the starting point and the first number. Step is the difference between each number and numberOfSteps is the length of the array returned.
   * @param {number} start - the start value of the array of numbers
   * @param {number} step - the steps between each number
   * @param {number} numberOfSteps - the length of the output array
