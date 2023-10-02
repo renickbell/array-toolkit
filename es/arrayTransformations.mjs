@@ -50,6 +50,9 @@ export function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWit
   * @example console.log(removeAllInstance([1,2,3,4,3,2,1], 3)) //[1, 2, 4, 2, 1]
   */
 export function removeAllInstance(arr, item) {
+    if (item === undefined){
+        return arr
+    }
     return arr.filter((f) => f !== item);
 }
 
