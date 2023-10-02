@@ -27,6 +27,8 @@ OR
 const A = require('array-toolkit')
 ```
 
+WARNING: Only use the code after assigning it to a variable. Importing individual functions will not work.
+
 ## Files
 src contains all the files needed for using the code with require and es contains all the files needed for using the code with await import. All those directories contain the same things except one is in .Js and the other is in .mjs. This design is from [Ramda](https://ramdajs.com/).
 
