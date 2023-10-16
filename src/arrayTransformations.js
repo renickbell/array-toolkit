@@ -53,9 +53,19 @@ function removeAllInstance(arr, item) {
     if (item === undefined){
         return arr
     }
-    return arr.filter((f) => f !== item);
+    return arr.filter((f) =>{
+        if (f instanceof Object === true && util.isDeepStrictEqual(f, item) === true){
+            return false
+        }
+        else if (f === item){
+            return false
+        }
+        else {
+            return true
+        }
+    })
 }
-
+//BardAI used for researching method for checking object equality: https://g.co/bard/share/070271891b74
 
 /**
   * Removes an item the first time it appears.
@@ -65,11 +75,23 @@ function removeAllInstance(arr, item) {
 */
 function removeFirstInstance(arr, item){
     let index = arr.indexOf(item);
+    if (index === -1){
+        arr.every((x, i) =>{
+            if (x instanceof Array === false && x instanceof Object === true && util.isDeepStrictEqual(x, item) === true) {
+                index = i 
+                return false
+            }
+            else {
+                return true
+            }
+        })
+    }
     if (index > -1){
         return this.safeSplice(arr, 1, index)
     }
     return arr
 }
+//BardAI used for researching method for checking object equality: https://g.co/bard/share/070271891b74
 
 /**Remove the item at a specific index of an array.
   * @param {array} arr - the array to modify
@@ -91,8 +113,14 @@ function removeAtIndex(arr, item, index){
   * @example console.log(removeMultipleItems([1,2,3,4,3,2,1], [2,3])) //[1, 4, 1]
 */
 function removeMultipleItems(arr, itemsToRemove) {
-    return arr.filter((x) => !itemsToRemove.includes(x));
+    return arr.filter((x) =>{ 
+        if (x instanceof Array === false && x instanceof Object === true){
+            return !itemsToRemove.every(r => util.isDeepStrictEqual(x, r))
+        }
+        return !itemsToRemove.includes(x)
+    });
 }
+//BardAI used for researching method for checking object equality: https://g.co/bard/share/070271891b74
 
 /**
  * Scales an array of values from a given input range to a desired output range.
