@@ -320,6 +320,7 @@ export function shuffle(array) {
         [...array]
     );
 }
+// knuth shuffle from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
 
 /**
  * Filters the inputArray based on whether any of the substrings in substringArray are found in each element.
