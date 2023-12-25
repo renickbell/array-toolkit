@@ -49,7 +49,7 @@ export function safeSplice(inputArray, amountToRemove, indexToRemove, replaceWit
   * @param item - the item/items to remove
   * @example console.log(removeAllInstance([1,2,3,4,3,2,1], 3)) //[1, 2, 4, 2, 1]
   */
-function removeAllInstance(arr, item) {
+export function removeAllInstance(arr, item) {
     if (item === undefined){
         return arr
     }
@@ -73,7 +73,7 @@ function removeAllInstance(arr, item) {
   * @param item - the item/items to remove
   * @example console.log(removeFirstInstance([1,2,3,4,3,2,1], 3)) //[1, 2, 4, 3, 2, 1]
 */
-function removeFirstInstance(arr, item){
+export function removeFirstInstance(arr, item){
     let index = arr.indexOf(item);
     if (index === -1){
         arr.every((x, i) =>{
@@ -112,7 +112,7 @@ export function removeAtIndex(arr, item, index){
   * @param item - what items to remove as an array
   * @example console.log(removeMultipleItems([1,2,3,4,3,2,1], [2,3])) //[1, 4, 1]
 */
-function removeMultipleItems(arr, itemsToRemove) {
+export function removeMultipleItems(arr, itemsToRemove) {
     return arr.filter((x) =>{
         if (x instanceof Array === false && x instanceof Object === true){
             return !itemsToRemove.every(r => util.isDeepStrictEqual(x, r))
