@@ -342,27 +342,130 @@ export function flipBooleans(arr) {
     return arr.map((a) => !a);
 }
 
-// module.exports = {
-//     resizeArray,
-//     safeSplice,
-//     removeAllInstance,
-//     removeMultipleItems,
-//     scaleToRange,
-//     scaleToSum,
-//     pick,
-//     pickN,
-//     low2HighSort,
-//     high2LowSort,
-//     takeN,
-//     takeTo,
-//     loopTo,
-//     zip,
-//     buildZip,
-//     shuffle,
-//     gatherBySubstring,
-//     flipBooleans,
-//     sum,
-//     removeFirstInstance,
-//     removeAtIndex
-// };
+/**
+ * Rotates an array of items. Basically wraps array and moves the items in the array.
+ * @param {array} xs - items
+ * @param {number} count - the remainder of this and the length of xs will be the loop point.
+ * @example
+ * console.log(rotate([0, 1, 2, 3, 4 ,5 ], 10))
+ * console.log(rotate([0, 1, 2, 3], 10))
+ * console.log(rotate(['a', 'b', 'c' ], 5))
+ * @see https://stackoverflow.com/a/30646964/19515980
+*/
+export function rotate (xs, count) {
+  var n = -(count % xs.length);
+  return xs.slice(n).concat(xs.slice(0, n));
+}
 
+/**
+ * Rotates an array of items. Basically wraps array and moves the items in the array but in the opposite direction compared to rotate function.
+ * @param {array} xs - items
+ * @param {number} count - the remainder of this and the length of xs will be the loop point.
+ * @example
+ * console.log(rotateCounter([0, 1, 2, 3, 4 ,5 ], 10))
+ * console.log(rotateCounter([0, 1, 2, 3], 10))
+ * console.log(rotateCounter(['a', 'b', 'c' ], 5))
+ * @see https://stackoverflow.com/a/30646964/19515980
+*/
+export function rotateCounter (xs, count) {
+  var n = count % xs.length;
+  return xs.slice(n).concat(xs.slice(0, n));
+}
+
+/**
+ * Interleaves two arrays. Takes an item from arr1 and another from arr2 then repeats until none left.
+ * @param {array} arr1
+ * @param {array} arr2
+ * @example console.log(interleave([1, 1, 1], [2, 2, 2]))
+*/
+export function interleave (arr1, arr2) {
+    let outputArray = [];
+    if (arr1.length > arr2.length){
+        arr1.forEach((x,i) => {outputArray.push(x);outputArray.push(arr2[i%arr2.length])})
+    }
+    else {
+        arr2.forEach((x,i) => {outputArray.push(arr1[i%arr1.length]);outputArray.push(x)})
+    }
+    return outputArray
+}
+
+/**
+ * Interleaves multiple arrays. Takes an item from each array and puts in the the outputArray. This actions is then repeated until all items from the longest array have been input into the outpuArray.
+ * @param {array} arrays - Contains the arrays to interleave.
+ * @example console.log(interleaveN([[1, 1, 1], [2, 2, 2], [3, 3, 3]]))
+*/
+export function interleaveN (arrays) {
+    let outputArray = [];
+    let lengths = arrays.map(x => x.length);
+    let targetLength = this.getMaxIndex(lengths)[0];
+    let longestArray = arrays[targetLength[0]];
+    longestArray.forEach((x,i) => {arrays.forEach(a => outputArray.push(a[i%a.length]))})
+    return outputArray
+}
+
+/**
+ * Returns an Array that has all the items of inputArray but the number of times each item appears is defined by the corresponding values of stutterCount.
+ * @param {array} inputArray - The items that appear in the outputArray.
+ * @param {array} stutterCounts = Number of times each item in inputArray should appear.
+ * @example console.log(stutterN(['a', 'b', 'c'], [2, 3, 4]))
+*/
+export function stutterN (inputArray, stutterCounts) {
+    let outputArray = [];
+    let stutterBases = stutterCounts.map(x => this.buildArray(x, i => i));
+    inputArray.forEach((x,i) => stutterBases[i%stutterBases.length].forEach(s => outputArray.push(x)))
+    return outputArray
+}
+
+/**
+ * Wrapper for the stutterN function that only allows one number for stutterCount.
+ * @param {array} inputArray - The items that appear in the outputArray.
+ * @param {number} stutterCount - Number of times each item in inputArray should appear.
+ * @example console.log(stutter(['a', 'b', 'c'], 2))
+*/
+export function stutter (inputArray, stutterCount) {
+    return this.stutterN (inputArray, [stutterCount])
+}
+
+/**
+ * Replaces items at every period.
+ * @param {array} inputArray - Original array.
+ * @param {} replacementItem - Replacement amount.
+ * @example
+ * console.log(replacePeriodically(['a', 'a', 'a', 'a', 'a', 'a', 'a'], 'b', 2))
+ * console.log(replacePeriodically(['a', 'a', 'a', 'a', 'a', 'a', 'a'], 'b', 4))
+*/
+export function replacePeriodically (inputArray, replacementItem, period) {
+    if (Number.isInteger(period) === false) {
+        period = Math.floor(period)
+    }
+    return inputArray.map((x,i) => {
+        if (i % period === 0) {
+            return replacementItem
+        }
+        else {
+            return x
+        }
+    })
+}
+
+/**
+ * Adds items at every period.
+ * @param {array} inputArray - Original array.
+ * @param {} itemToAdd - Replacement amount.
+ * @example
+ * console.log(addPeriodically(['a', 'a', 'a', 'a', 'a', 'a', 'a'], 'b', 2))
+ * console.log(addPeriodically(['a', 'a', 'a', 'a', 'a', 'a', 'a'], 'b', 4))
+*/
+export function addPeriodically (inputArray, itemToAdd, period) {
+    if (Number.isInteger(period) === false) {
+        period = Math.floor(period)
+    }
+    return inputArray.flatMap((x, i) => {
+        if (i % period === 0) {
+            return [itemToAdd, x]
+        }
+        else {
+            return x
+        }
+    })
+}
