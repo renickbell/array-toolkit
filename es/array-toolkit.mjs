@@ -6,6 +6,7 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
+export * from './utils.mjs'
 export * from './arrayTransformations.mjs'
 export * from './dataToArray.mjs'
 export * from './infoFromArray.mjs'

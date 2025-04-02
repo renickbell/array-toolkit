@@ -158,7 +158,7 @@ function scaleToSum(span, vals) {
   * console.log(pick([1,2,3,4])) //3
 */
 function pick(inputArray) {
-    return inputArray[Math.round((inputArray.length - 1) * Math.random())];
+    return inputArray[this.randomRange(0, inputArray.length - 1)];
 }
 
 /**
@@ -312,7 +312,8 @@ function buildZip(a, b) {
 function shuffle(array) {
     return array.reduceRight(
         (acc, _, currentIndex) => {
-            let randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+            let randomIndex = Math.floor(this.randomRange(0, currentIndex + 1, 5));
+//             let randomIndex = Math.floor(Math.random() * (currentIndex + 1));
             [acc[currentIndex], acc[randomIndex]] = [acc[randomIndex], acc[currentIndex]];
             return acc;
         },
@@ -475,32 +476,6 @@ function addPeriodically (inputArray, itemToAdd, period) {
 
 //generate by chatGPT
 function duplicateItems(arr, count) {
-    return arr.flatMap(item => Array(count).fill(item));
-}
-
-function duplicateItemsV2(arr, count) {
-    let outArray = R.clone(arr)
-    outArray = outArray.flatMap(item => Array(Math.ceil(count / outArray.length)).fill(item));
-    outArray.length = count;
-    return outArray
-}
-
-function pickAndRemove(inputArray) {
-    let outputItem = inputArray[this.randomRange(0, inputArray.length - 1)];
-    inputArray.splice(inputArray.indexOf(outputItem), 1)
-    return outputItem
-}
-
-function removeRandomly(inputArray, n) {
-    let inputAClone = this.R.clone(inputArray)
-    this.buildArray(n, () => {}).forEach((x, i) => {
-        inputAClone = this.safeSplice(inputAClone, 1, this.randomRange(0, inputAClone.length - 1))
-    })
-    return inputAClone
-}
-
-//generate by chatGPT
-function duplicateItems(arr, count) {
     return arr.flatMap(item => this.buildArray(count, () => {return item}));
 }
 
@@ -510,6 +485,23 @@ function duplicateItemsV2(arr, count) {
     outArray = outArray.flatMap(item => this.buildArray(finalCount, () => {return item}));
     outArray.length = count;
     return outArray
+}
+
+function pickAndRemove(inputArray) {
+//     let outputItem = inputArray[Math.round((inputArray.length - 1) * Math.random())];
+//     inputArray.splice(inputArray.indexOf(outputItem), 1)
+//     return outputItem
+    return safeSplice(inputArray, 1, this.randomRange(0, inputArray.length - 1))
+}
+
+function pickAndRemoveItems (inputArray, n) {
+//     for (let i = 0; i < n; i++) {
+//         let item = inputArray[Math.round((inputArray.length - 1) * Math.random())];
+//         inputArray.splice(inputArray.indexOf(item), 1);
+//     }
+    return this.buildArray(n, () => {}).reduce((accumulator, currentValue) => {
+        return this.pickAndRemove(accumulator)
+    }, inputArray)
 }
 
 module.exports = {
@@ -542,9 +534,9 @@ module.exports = {
     stutter,
     replacePeriodically,
     addPeriodically,
-    pickAndRemove,
-    removeRandomly,
     duplicateItems,
     duplicateItemsV2,
+    pickAndRemove,
+    pickAndRemoveItems,
 };
 

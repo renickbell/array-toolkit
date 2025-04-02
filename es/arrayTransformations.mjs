@@ -309,7 +309,8 @@ export function buildZip(a, b) {
 export function shuffle(array) {
     return array.reduceRight(
         (acc, _, currentIndex) => {
-            let randomIndex = Math.floor(Math.random() * (currentIndex + 1));
+            let randomIndex = Math.floor(this.randomRange(0, currentIndex + 1, 5));
+//             let randomIndex = Math.floor(Math.random() * (currentIndex + 1));
             [acc[currentIndex], acc[randomIndex]] = [acc[randomIndex], acc[currentIndex]];
             return acc;
         },
@@ -470,15 +471,6 @@ export function addPeriodically (inputArray, itemToAdd, period) {
     })
 }
 
-
-export function removeRandomly(inputArray, n) {
-    let inputAClone = this.R.clone(inputArray)
-    this.buildArray(n, () => {}).forEach((x, i) => {
-        inputAClone = this.safeSplice(inputAClone, 1, this.randomRange(0, inputAClone.length - 1))
-    })
-    return inputAClone
-}
-
 //generate by chatGPT
 export function duplicateItems(arr, count) {
     return arr.flatMap(item => this.buildArray(count, () => {return item}));
@@ -490,6 +482,23 @@ export function duplicateItemsV2(arr, count) {
     outArray = outArray.flatMap(item => this.buildArray(finalCount, () => {return item}));
     outArray.length = count;
     return outArray
+}
+
+export function pickAndRemove(inputArray) {
+//     let outputItem = inputArray[Math.round((inputArray.length - 1) * Math.random())];
+//     inputArray.splice(inputArray.indexOf(outputItem), 1)
+//     return outputItem
+    return safeSplice(inputArray, 1, this.randomRange(0, inputArray.length - 1))
+}
+
+export function pickAndRemoveItems (inputArray, n) {
+//     for (let i = 0; i < n; i++) {
+//         let item = inputArray[Math.round((inputArray.length - 1) * Math.random())];
+//         inputArray.splice(inputArray.indexOf(item), 1);
+//     }
+    return this.buildArray(n, () => {}).reduce((accumulator, currentValue) => {
+        return this.pickAndRemove(accumulator)
+    }, inputArray)
 }
 
 
