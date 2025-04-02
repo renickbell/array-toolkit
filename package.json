@@ -4,7 +4,7 @@
   },
   "name": "array-toolkit",
   "description": "Some dope tools for Javascript array manipulation.",
-  "version": "3.4.4",
+  "version": "3.4.5",
   "scripts": {
     "test": "node --test"
   },
@@ -21,7 +21,7 @@
     "url": "https://github.com/renickbell/arrayToolkit/issues"
   },
   "homepage": "https://github.com/renickbell/arrayToolkit#readme",
-    "exports": {
+  "exports": {
     ".": {
       "require": "./src/array-toolkit.js",
       "import": "./es/array-toolkit.mjs"
@@ -31,7 +31,7 @@
     "./es/": "./es/",
     "./src/": "./src/"
   },
-    "files": [
+  "files": [
     "es",
     "src"
   ]
