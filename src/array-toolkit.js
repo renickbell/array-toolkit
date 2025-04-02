@@ -8,6 +8,7 @@
 
 let mergedFunctions = {}
 
+Object.assign(mergedFunctions, require('./utils.js'))
 Object.assign(mergedFunctions, require('./arrayTransformations.js'))
 Object.assign(mergedFunctions, require('./infoFromArray.js'))
 Object.assign(mergedFunctions, require('./dataToArray.js'))

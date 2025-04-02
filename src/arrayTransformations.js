@@ -6,6 +6,8 @@
 // -- license: GPL 3.0
 // --------------------------------------------------------------------------
 
+
+
 //requiring it locally:
 // let buildArray = require('./dataToArray.js').buildArray;
 
@@ -471,6 +473,45 @@ function addPeriodically (inputArray, itemToAdd, period) {
     })
 }
 
+//generate by chatGPT
+function duplicateItems(arr, count) {
+    return arr.flatMap(item => Array(count).fill(item));
+}
+
+function duplicateItemsV2(arr, count) {
+    let outArray = R.clone(arr)
+    outArray = outArray.flatMap(item => Array(Math.ceil(count / outArray.length)).fill(item));
+    outArray.length = count;
+    return outArray
+}
+
+function pickAndRemove(inputArray) {
+    let outputItem = inputArray[this.randomRange(0, inputArray.length - 1)];
+    inputArray.splice(inputArray.indexOf(outputItem), 1)
+    return outputItem
+}
+
+function removeRandomly(inputArray, n) {
+    let inputAClone = this.R.clone(inputArray)
+    this.buildArray(n, () => {}).forEach((x, i) => {
+        inputAClone = this.safeSplice(inputAClone, 1, this.randomRange(0, inputAClone.length - 1))
+    })
+    return inputAClone
+}
+
+//generate by chatGPT
+function duplicateItems(arr, count) {
+    return arr.flatMap(item => this.buildArray(count, () => {return item}));
+}
+
+function duplicateItemsV2(arr, count) {
+    let outArray = this.R.clone(arr)
+    let finalCount = Math.ceil(count / outArray.length)
+    outArray = outArray.flatMap(item => this.buildArray(finalCount, () => {return item}));
+    outArray.length = count;
+    return outArray
+}
+
 module.exports = {
     resizeArray,
     safeSplice,
@@ -500,6 +541,10 @@ module.exports = {
     stutterN,
     stutter,
     replacePeriodically,
-    addPeriodically
+    addPeriodically,
+    pickAndRemove,
+    removeRandomly,
+    duplicateItems,
+    duplicateItemsV2,
 };
 

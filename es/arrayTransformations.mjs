@@ -469,3 +469,27 @@ export function addPeriodically (inputArray, itemToAdd, period) {
         }
     })
 }
+
+
+export function removeRandomly(inputArray, n) {
+    let inputAClone = this.R.clone(inputArray)
+    this.buildArray(n, () => {}).forEach((x, i) => {
+        inputAClone = this.safeSplice(inputAClone, 1, this.randomRange(0, inputAClone.length - 1))
+    })
+    return inputAClone
+}
+
+//generate by chatGPT
+export function duplicateItems(arr, count) {
+    return arr.flatMap(item => this.buildArray(count, () => {return item}));
+}
+
+export function duplicateItemsV2(arr, count) {
+    let outArray = this.R.clone(arr)
+    let finalCount = Math.ceil(count / outArray.length)
+    outArray = outArray.flatMap(item => this.buildArray(finalCount, () => {return item}));
+    outArray.length = count;
+    return outArray
+}
+
+
