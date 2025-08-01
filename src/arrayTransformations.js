@@ -168,7 +168,7 @@ function pick(inputArray) {
   * @example console.log(pickN(3, [1,2,3,4,5,6,7,8,9])) //[9, 5, 8]
 */
 function pickN(n, inputArray) {
-    return this.buildArray(n, (i) => pick(inputArray));
+    return this.buildArray(n, (i) => this.pick(inputArray));
 }
 
 /**
